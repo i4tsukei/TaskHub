@@ -6,14 +6,24 @@
   font-weight: 600;
   height: 100vh;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .calendar {
-  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .calendar-navigation {
@@ -83,7 +93,7 @@
 
 .calendar-day {
   background: white;
-  min-height: 140px;
+  min-height: 100px;
   padding: 0.5rem;
   position: relative;
   cursor: pointer;

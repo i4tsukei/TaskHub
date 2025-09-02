@@ -21,11 +21,11 @@ function Sobre() {
               <h3>Checklist Dinâmico</h3>
               <p>Crie listas de tarefas personalizadas para cada evento. Marque itens como concluídos e acompanhe seu progresso em tempo real.</p>
             </div>
-
-            <div className="recurso-item">
-              <h3>Anexos Multimídia</h3>
-              <p>Adicione contexto visual aos seus eventos com imagens e documentos. Mantenha tudo organizado em um só lugar.</p>
-            </div>
+          </div>
+          
+          <div className="recurso-item recurso-centered">
+            <h3>Anexos Multimídia</h3>
+            <p>Adicione contexto visual aos seus eventos com imagens e documentos. Mantenha tudo organizado em um só lugar.</p>
           </div>
         </div>
 
