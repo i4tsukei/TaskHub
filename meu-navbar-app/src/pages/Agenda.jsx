@@ -346,7 +346,7 @@ function Agenda() {
               {selectedEvent.date && (
                 <div className="detail-item">
                   <span className="detail-label">Data:</span>
-                  <span className="detail-value">{new Date(selectedEvent.date).toLocaleDateString('pt-BR')}</span>
+                  <span className="detail-value">{selectedEvent.date.split('-').reverse().join('/')}</span>
                 </div>
               )}
               
