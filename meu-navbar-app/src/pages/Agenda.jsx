@@ -13,15 +13,96 @@ function Agenda() {
     time: '',
     description: '',
     checklist: [],
-    image: null
+    image: null,
+    color: '#1a73e8'
   });
+  const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0, eventId: null });
+  const [showEventDetails, setShowEventDetails] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const eventColors = {
+    purple: '#c684d1ff',
+    pink: '#e961ddff',
+    blue: '#7badeeff',
+    yellow: '#ffc15eff',
+    red: '#f35b5bff',
+    orange: '#f0a739ff',
+    green: '#87ec8cff'
+  };
 
   const handleAddEvent = () => {
     if (eventForm.title && eventForm.date) {
-      setEvents([...events, { ...eventForm, id: Date.now() }]);
-      setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null });
+      if (eventForm.id) {
+        // Editando evento existente
+        setEvents(events.map(event => 
+          event.id === eventForm.id ? eventForm : event
+        ));
+      } else {
+        // Criando novo evento
+        setEvents([...events, { ...eventForm, id: Date.now() }]);
+      }
+      setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8' });
       setShowModal(false);
     }
+  };
+
+  const handleEventRightClick = (e, eventId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setContextMenu({
+      show: true,
+      x: e.clientX,
+      y: e.clientY,
+      eventId
+    });
+  };
+
+  const deleteEvent = (eventId) => {
+    setEvents(events.filter(event => event.id !== eventId));
+    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
+  };
+
+  const changeEventColor = (eventId, color) => {
+    setEvents(events.map(event => 
+      event.id === eventId ? { ...event, color } : event
+    ));
+    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
+  };
+
+  const closeContextMenu = () => {
+    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
+  };
+
+  const handleEventClick = (e, event) => {
+    e.stopPropagation();
+    setSelectedEvent(event);
+    setShowEventDetails(true);
+  };
+
+  const updateEventChecklistItem = (eventId, itemIndex, completed) => {
+    setEvents(events.map(event => {
+      if (event.id === eventId) {
+        const updatedChecklist = event.checklist.map((item, index) => 
+          index === itemIndex ? { ...item, completed } : item
+        );
+        return { ...event, checklist: updatedChecklist };
+      }
+      return event;
+    }));
+    
+    // Atualizar também o selectedEvent para refletir a mudança imediatamente
+    if (selectedEvent && selectedEvent.id === eventId) {
+      const updatedChecklist = selectedEvent.checklist.map((item, index) => 
+        index === itemIndex ? { ...item, completed } : item
+      );
+      setSelectedEvent({ ...selectedEvent, checklist: updatedChecklist });
+    }
+  };
+
+  const editEvent = () => {
+    setEventForm(selectedEvent);
+    setShowEventDetails(false);
+    setShowModal(true);
   };
 
   const handleImageUpload = (e) => {
@@ -105,7 +186,7 @@ function Agenda() {
   };
 
   return (
-    <div className="agenda-container">
+    <div className="agenda-container" onClick={closeContextMenu}>
       <div className="calendar">
         <div className="calendar-navigation">
           <div className="month-year">
@@ -131,7 +212,13 @@ function Agenda() {
                   <span className="day-number">{day}</span>
                   <div className="day-events">
                     {getEventsForDay(day).map(event => (
-                      <div key={event.id} className="event-preview">
+                      <div 
+                        key={event.id} 
+                        className="event-preview"
+                        style={{ backgroundColor: event.color || '#1a73e8' }}
+                        onClick={(e) => handleEventClick(e, event)}
+                        onContextMenu={(e) => handleEventRightClick(e, event.id)}
+                      >
                         {event.title}
                       </div>
                     ))}
@@ -147,40 +234,57 @@ function Agenda() {
         <div className="event-overlay">
           <div className="event-form">
             <div className="form-header">
-              <h2>Novo Evento</h2>
+              <div className="event-color" style={{ backgroundColor: eventForm.color }}></div>
+              <input
+                type="text"
+                placeholder="Adicionar título"
+                value={eventForm.title}
+                onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })}
+                className="title-input"
+              />
               <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
             </div>
             
-            <div className="form-content">
-              <div className="form-left">
-                <input
-                  type="text"
-                  placeholder="Título do evento"
-                  value={eventForm.title}
-                  onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })}
-                />
-                <div className="form-row">
-                  <input
-                    type="date"
-                    value={eventForm.date}
-                    onChange={(e) => setEventForm({ ...eventForm, date: e.target.value })}
-                  />
-                  <input
-                    type="time"
-                    value={eventForm.time}
-                    onChange={(e) => setEventForm({ ...eventForm, time: e.target.value })}
+            <div className="form-body">
+              <div className="form-field">
+                <div className="field-icon"></div>
+                <div className="field-content">
+                  <div className="datetime-row">
+                    <input
+                      type="date"
+                      value={eventForm.date}
+                      onChange={(e) => setEventForm({ ...eventForm, date: e.target.value })}
+                      className="date-input"
+                    />
+                    <input
+                      type="time"
+                      value={eventForm.time}
+                      onChange={(e) => setEventForm({ ...eventForm, time: e.target.value })}
+                      className="time-input"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-field">
+                <div className="field-icon"></div>
+                <div className="field-content">
+                  <textarea
+                    placeholder="Adicionar descrição"
+                    value={eventForm.description}
+                    onChange={(e) => setEventForm({ ...eventForm, description: e.target.value })}
+                    className="description-input"
                   />
                 </div>
-                <textarea
-                  placeholder="Descrição"
-                  value={eventForm.description}
-                  onChange={(e) => setEventForm({ ...eventForm, description: e.target.value })}
-                />
               </div>
-              
-              <div className="form-right">
-                <div className="checklist-section">
-                  <h3>Checklist</h3>
+
+              <div className="form-field">
+                <div className="field-icon"></div>
+                <div className="field-content">
+                  <div className="checklist-header">
+                    <span>Checklist</span>
+                    <button type="button" onClick={addChecklistItem} className="add-item-btn">+</button>
+                  </div>
                   {eventForm.checklist.map((item, index) => (
                     <div key={index} className="checklist-item">
                       <input
@@ -190,26 +294,129 @@ function Agenda() {
                       />
                       <input
                         type="text"
-                        placeholder="Item da lista"
+                        placeholder="Adicionar item"
                         value={item.text}
                         onChange={(e) => updateChecklistItem(index, 'text', e.target.value)}
+                        className="checklist-text"
                       />
                     </div>
                   ))}
-                  <button type="button" onClick={addChecklistItem}>+ Adicionar item</button>
                 </div>
+              </div>
 
-                <div className="image-section">
-                  <h3>Anexar Imagem</h3>
-                  <input type="file" accept="image/*" onChange={handleImageUpload} />
+              <div className="form-field">
+                <div className="field-icon"></div>
+                <div className="field-content">
+                  <div className="attachment-header">
+                    <span>Anexos</span>
+                    <label className="file-upload-btn">
+                      <input type="file" accept="image/*" onChange={handleImageUpload} style={{display: 'none'}} />
+                      Adicionar arquivo
+                    </label>
+                  </div>
                   {eventForm.image && (
-                    <img src={eventForm.image} alt="Preview" className="image-preview" />
+                    <div className="attachment-preview">
+                      <img src={eventForm.image} alt="Preview" className="image-preview" />
+                    </div>
                   )}
                 </div>
               </div>
             </div>
             
-            <button className="save-btn" onClick={handleAddEvent}>Salvar Evento</button>
+            <div className="form-footer">
+              <button className="save-btn" onClick={handleAddEvent}>Salvar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showEventDetails && selectedEvent && (
+        <div className="event-overlay">
+          <div className="event-details">
+            <div className="details-header">
+              <div className="event-color" style={{ backgroundColor: selectedEvent.color || '#1a73e8' }}></div>
+              <h2 className="event-title">{selectedEvent.title}</h2>
+              <div className="header-actions">
+                <button className="edit-btn" onClick={editEvent}>Editar</button>
+                <button className="close-btn" onClick={() => setShowEventDetails(false)}>×</button>
+              </div>
+            </div>
+            
+            <div className="details-body">
+              {selectedEvent.date && (
+                <div className="detail-item">
+                  <span className="detail-label">Data:</span>
+                  <span className="detail-value">{new Date(selectedEvent.date).toLocaleDateString('pt-BR')}</span>
+                </div>
+              )}
+              
+              {selectedEvent.time && (
+                <div className="detail-item">
+                  <span className="detail-label">Horário:</span>
+                  <span className="detail-value">{selectedEvent.time}</span>
+                </div>
+              )}
+              
+              {selectedEvent.description && (
+                <div className="detail-item">
+                  <span className="detail-label">Descrição:</span>
+                  <p className="detail-description">{selectedEvent.description}</p>
+                </div>
+              )}
+              
+              {selectedEvent.checklist && selectedEvent.checklist.length > 0 && (
+                <div className="detail-item">
+                  <span className="detail-label">Checklist:</span>
+                  <div className="detail-checklist">
+                    {selectedEvent.checklist.map((item, index) => (
+                      <div key={index} className="checklist-detail-item">
+                        <input
+                          type="checkbox"
+                          checked={item.completed}
+                          onChange={(e) => updateEventChecklistItem(selectedEvent.id, index, e.target.checked)}
+                          className="detail-checkbox"
+                        />
+                        <span className={item.completed ? 'completed-text' : ''}>{item.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {selectedEvent.image && (
+                <div className="detail-item">
+                  <span className="detail-label">Anexo:</span>
+                  <img src={selectedEvent.image} alt="Anexo" className="detail-image" />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {contextMenu.show && (
+        <div 
+          className="context-menu"
+          style={{ left: contextMenu.x, top: contextMenu.y }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="context-menu-item delete" onClick={() => deleteEvent(contextMenu.eventId)}>
+            Excluir evento
+          </div>
+          <div className="context-menu-divider"></div>
+          <div className="context-menu-section">
+            <div className="context-menu-title">Alterar cor</div>
+            <div className="color-options">
+              {Object.entries(eventColors).map(([name, color]) => (
+                <div
+                  key={name}
+                  className="color-option"
+                  style={{ backgroundColor: color }}
+                  onClick={() => changeEventColor(contextMenu.eventId, color)}
+                  title={name}
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
       )}

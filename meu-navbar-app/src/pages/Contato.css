@@ -1,138 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap');
+
 .contato {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  padding: 2rem;
+  background: #f8f9fa;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+.contato-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
 }
 
 .contato-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 48px;
 }
 
 .contato-header h1 {
-  font-size: 2.5rem;
-  color: #0369a1;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 400;
+  color: #3c4043;
+  margin: 0 0 8px 0;
 }
 
 .contato-header p {
-  font-size: 1.2rem;
-  color: #0284c7;
+  font-size: 16px;
+  color: #5f6368;
+  margin: 0;
 }
 
 .contato-content {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 48px;
+  align-items: start;
 }
 
-.contato-info {
+.contact-info {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 32px;
 }
 
-.info-card {
+.info-item {
+  padding: 0;
+}
+
+.info-item h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #3c4043;
+  margin: 0 0 4px 0;
+}
+
+.info-item p {
+  font-size: 14px;
+  color: #5f6368;
+  margin: 0;
+}
+
+.contact-form {
   background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(14, 165, 233, 0.08);
-  border: 1px solid #bae6fd;
-}
-
-.info-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.info-card h3 {
-  color: #0369a1;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.info-card p {
-  color: #0284c7;
-}
-
-.contato-form {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.08);
-  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: 1px solid #dadce0;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #0369a1;
-  font-weight: 600;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
+.form-input, .form-textarea {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e0f2fe;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-  background: #f0f9ff;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #0ea5e9;
+  padding: 12px 16px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
   background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
-.form-group textarea {
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 1px #1a73e8;
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: #9aa0a6;
+}
+
+.form-textarea {
   resize: vertical;
   min-height: 120px;
 }
 
 .submit-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  background: #1a73e8;
   color: white;
   border: none;
-  padding: 1rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 10px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+  background: #1557b0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.submit-btn:active {
+  background: #1557b0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 @media (max-width: 768px) {
+  .contato-container {
+    padding: 24px 16px;
+  }
+  
   .contato-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 32px;
+  }
+  
+  .contact-form {
+    padding: 24px;
   }
   
   .contato-header h1 {
-    font-size: 2rem;
-  }
-  
-  .contato-form {
-    padding: 1.5rem;
+    font-size: 28px;
   }
 }
