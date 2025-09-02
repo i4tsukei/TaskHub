@@ -1,45 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 .agenda-container {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.agenda-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.add-event-btn {
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.agenda-content {
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 2rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  height: 100vh;
+  position: relative;
 }
 
 .calendar {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.calendar-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.month-year {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.month-year-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  right: 2rem;
 }
 
 .calendar-header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background-color: #f8f9fa;
+  background-color: rgba(173, 216, 230, 0.3);
   padding: 1rem 0;
   text-align: center;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   color: #5f6368;
 }
@@ -49,13 +78,24 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
   background-color: #e0e0e0;
+  flex: 1;
 }
 
 .calendar-day {
   background: white;
-  min-height: 120px;
+  min-height: 140px;
   padding: 0.5rem;
   position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calendar-day:hover {
+  background-color: #f0f9ff;
+}
+
+.calendar-day.active:hover {
+  background-color: #e0f2fe;
 }
 
 .calendar-day.inactive {
@@ -63,7 +103,8 @@
 }
 
 .day-number {
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   color: #3c4043;
 }
 
@@ -79,29 +120,113 @@
   font-size: 0.75rem;
   margin-bottom: 0.25rem;
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.event-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .event-form {
   background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  height: fit-content;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  width: 95%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
-.event-form h2 {
+.form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-left, .form-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
-  color: #3c4043;
+}
+
+.form-header h2 {
+  margin: 0;
+  color: #2d3748;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  background: #f7fafc;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #718096;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #edf2f7;
+  color: #4a5568;
+  transform: scale(1.05);
 }
 
 .event-form input,
 .event-form textarea {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'Montserrat', sans-serif;
+  background: #f7fafc;
+  transition: all 0.2s ease;
+}
+
+.event-form input:focus,
+.event-form textarea:focus {
+  outline: none;
+  border-color: #4285f4;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-row input {
+  margin-bottom: 1.25rem;
 }
 
 .event-form textarea {
@@ -111,8 +236,11 @@
 
 .checklist-section h3,
 .image-section h3 {
-  margin: 1.5rem 0 0.5rem 0;
-  color: #3c4043;
+  margin: 2rem 0 1rem 0;
+  color: #2d3748;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .checklist-item {
@@ -133,13 +261,23 @@
 }
 
 .checklist-section button {
-  background: none;
-  border: 1px solid #4285f4;
+  background: #f0f9ff;
+  border: 2px solid #4285f4;
   color: #4285f4;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
   cursor: pointer;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.checklist-section button:hover {
+  background: #4285f4;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
 .image-preview {
@@ -151,22 +289,28 @@
 
 .save-btn {
   width: 100%;
-  background-color: #4285f4;
+  background: linear-gradient(135deg, #4285f4 0%, #1976d2 100%);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  padding: 1rem 2rem;
+  border-radius: 25px;
   cursor: pointer;
-  font-weight: 500;
-  margin-top: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
 }
 
 @media (max-width: 768px) {
-  .agenda-content {
-    grid-template-columns: 1fr;
-  }
-  
   .event-form {
-    order: -1;
+    width: 95%;
+    padding: 1.5rem;
   }
 }
