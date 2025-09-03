@@ -190,7 +190,24 @@ function Agenda() {
       <div className="calendar">
         <div className="calendar-navigation">
           <div className="month-year">
-            <span className="month-year-text">{monthNames[currentMonth]} {currentYear}</span>
+            <select 
+              value={currentMonth} 
+              onChange={(e) => setCurrentMonth(parseInt(e.target.value))}
+              className="month-selector"
+            >
+              {monthNames.map((month, index) => (
+                <option key={index} value={index}>{month}</option>
+              ))}
+            </select>
+            <select 
+              value={currentYear} 
+              onChange={(e) => setCurrentYear(parseInt(e.target.value))}
+              className="year-selector"
+            >
+              {Array.from({length: 10}, (_, i) => currentYear - 5 + i).map(year => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
           </div>
           <div className="nav-buttons">
             <button onClick={prevMonth} className="nav-btn">‹</button>

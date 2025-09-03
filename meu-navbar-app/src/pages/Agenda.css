@@ -11,6 +11,7 @@
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #f8f9fa;
 }
 
 .calendar {
@@ -63,6 +64,22 @@
   font-size: 1.2rem;
   font-weight: 600;
   color: #333;
+}
+
+.month-selector, .year-selector {
+  background: transparent;
+  border: none;
+  padding: 8px 4px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #3c4043;
+  cursor: pointer;
+  outline: none;
+}
+
+.month-selector:hover, .year-selector:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
 }
 
 .nav-buttons {
@@ -593,5 +610,14 @@
   .event-form {
     width: 95%;
     padding: 1.5rem;
+  }
+  
+  .month-year {
+    gap: 0.5rem;
+  }
+  
+  .month-selector, .year-selector {
+    font-size: 16px;
+    padding: 6px 4px;
   }
 }
