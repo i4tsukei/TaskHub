@@ -204,7 +204,7 @@ function Agenda() {
               onChange={(e) => setCurrentYear(parseInt(e.target.value))}
               className="year-selector"
             >
-              {Array.from({length: 10}, (_, i) => currentYear - 5 + i).map(year => (
+              {Array.from({length: currentYear - 2019 + 11}, (_, i) => 2019 + i).map(year => (
                 <option key={year} value={year}>{year}</option>
               ))}
             </select>

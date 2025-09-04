@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Cadastro from "./pages/Cadastro.jsx";
 import Contato from "./pages/Contato.jsx";
 import Sobre from "./pages/Sobre.jsx";
+import Avaliacao from "./pages/Avaliacao.jsx";
 import Footer from "./pages/Footer.jsx";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage}/>;
       case 'contato': return <Contato/>;
       case 'sobre': return <Sobre/>;
+      case 'avaliacao': return <Avaliacao/>;
       default: return <Home setCurrentPage={setCurrentPage}/>;
     }
   };
