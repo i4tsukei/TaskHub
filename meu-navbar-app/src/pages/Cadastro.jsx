@@ -72,7 +72,7 @@ function Cadastro({ setCurrentPage }) {
             />
           </div>
           
-          <button type="submit" className="cadastro-btn">Criar Conta</button>
+          <button type="submit" className="cadastro-btn">Começar Agora</button>
         </form>
         
         <div className="cadastro-footer">

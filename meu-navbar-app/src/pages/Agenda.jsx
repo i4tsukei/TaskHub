@@ -19,6 +19,10 @@ function Agenda() {
   const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0, eventId: null });
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [activeSettingsTab, setActiveSettingsTab] = useState('geral');
 
   const eventColors = {
     purple: '#c684d1ff',
@@ -71,6 +75,20 @@ function Agenda() {
 
   const closeContextMenu = () => {
     setContextMenu({ show: false, x: 0, y: 0, eventId: null });
+  };
+
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
+  const handleNewEvent = () => {
+    setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8' });
+    setShowModal(true);
+    setShowSidebar(false);
+  };
+
+  const handleSettings = () => {
+    setShowSettings(true);
   };
 
   const handleEventClick = (e, event) => {
@@ -187,6 +205,36 @@ function Agenda() {
 
   return (
     <div className="agenda-container" onClick={closeContextMenu}>
+      <button className="menu-toggle" onClick={toggleSidebar}>
+        ☰
+      </button>
+      {showSidebar && (
+        <div className="sidebar">
+          <div className="sidebar-content">
+          <div className="sidebar-item" onClick={handleNewEvent}>
+            <div className="sidebar-icon">+</div>
+            <div className="sidebar-label">Novo Evento</div>
+          </div>
+          <div className="sidebar-item" onClick={() => window.location.reload()}>
+            <div className="sidebar-icon">⌂</div>
+            <div className="sidebar-label">Página Inicial</div>
+          </div>
+          <div className="sidebar-item" onClick={() => setShowNotifications(true)}>
+            <div className="sidebar-icon">◉</div>
+            <div className="sidebar-label">Notificações</div>
+          </div>
+          <div className="sidebar-item" onClick={handleSettings}>
+            <div className="sidebar-icon">⚙</div>
+            <div className="sidebar-label">Configurações</div>
+          </div>
+          <div className="sidebar-item">
+            <div className="sidebar-icon">↓</div>
+            <div className="sidebar-label">Exportar</div>
+          </div>
+          </div>
+        </div>
+      )}
+      
       <div className="calendar">
         <div className="calendar-navigation">
           <div className="month-year">
@@ -333,7 +381,17 @@ function Agenda() {
                   </div>
                   {eventForm.image && (
                     <div className="attachment-preview">
-                      <img src={eventForm.image} alt="Preview" className="image-preview" />
+                      <div className="image-container">
+                        <img src={eventForm.image} alt="Preview" className="image-preview" />
+                        <button 
+                          type="button" 
+                          onClick={() => setEventForm({ ...eventForm, image: null })}
+                          className="delete-image-btn"
+                          title="Remover imagem"
+                        >
+                          ×
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -433,6 +491,91 @@ function Agenda() {
                   title={name}
                 ></div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showSettings && (
+        <div className="event-overlay">
+          <div className="settings-modal">
+            <div className="settings-header">
+              <h2>Configurações</h2>
+              <button className="close-btn" onClick={() => setShowSettings(false)}>×</button>
+            </div>
+            
+            <div className="settings-body">
+              <div className="settings-section">
+                <h3>Preferências</h3>
+                <div className="setting-item">
+                  <label>Primeiro dia da semana:</label>
+                  <select className="setting-select">
+                    <option value="0">Domingo</option>
+                    <option value="1">Segunda-feira</option>
+                  </select>
+                </div>
+                <div className="setting-item">
+                  <label>Formato de hora:</label>
+                  <select className="setting-select">
+                    <option value="24">24 horas</option>
+                    <option value="12">12 horas (AM/PM)</option>
+                  </select>
+                </div>
+                <div className="setting-item">
+                  <label>Tema:</label>
+                  <select className="setting-select">
+                    <option value="light">Claro</option>
+                    <option value="dark">Escuro</option>
+                    <option value="auto">Automático</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showNotifications && (
+        <div className="event-overlay">
+          <div className="notifications-modal">
+            <div className="notifications-header">
+              <h2>Notificações</h2>
+              <button className="close-btn" onClick={() => setShowNotifications(false)}>×</button>
+            </div>
+            
+            <div className="notifications-body">
+              <div className="notification-item">
+                <div className="notification-content">
+                  <div className="notification-title">Evento próximo</div>
+                  <div className="notification-text">Reunião de equipe em 15 minutos</div>
+                  <div className="notification-time">Há 2 minutos</div>
+                </div>
+              </div>
+              
+              <div className="notification-item">
+                <div className="notification-content">
+                  <div className="notification-title">Tarefa concluída</div>
+                  <div className="notification-text">Apresentação finalizada com sucesso</div>
+                  <div className="notification-time">Há 1 hora</div>
+                </div>
+              </div>
+              
+              <div className="notification-item">
+                <div className="notification-content">
+                  <div className="notification-title">Lembrete</div>
+                  <div className="notification-text">Revisar documentos para reunião de amanhã</div>
+                  <div className="notification-time">Há 3 horas</div>
+                </div>
+              </div>
+              
+              <div className="notification-empty">
+                <div className="empty-text">Você está em dia!</div>
+                <div className="empty-subtext">Nenhuma notificação pendente</div>
+              </div>
+            </div>
+            
+            <div className="notifications-footer">
+              <button className="clear-all-btn">Limpar todas</button>
             </div>
           </div>
         </div>

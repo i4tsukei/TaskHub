@@ -9,7 +9,7 @@ function Navbar({ currentPage, setCurrentPage }) {
         <li><a href="#agenda" onClick={() => setCurrentPage('agenda')}>Agenda</a></li>
         <li><a href="#contato" onClick={() => setCurrentPage('contato')}>Contato</a></li>
         <li><a href="#sobre" onClick={() => setCurrentPage('sobre')}>Sobre</a></li>
-        <li><a href="#avaliacao" onClick={() => setCurrentPage('avaliacao')}>Avaliação</a></li>
+
       </ul>
       <button className="sign-in" onClick={() => setCurrentPage('login')}>Entrar ➝</button>
     </nav>
