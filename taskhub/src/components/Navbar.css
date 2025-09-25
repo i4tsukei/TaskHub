@@ -1,0 +1,76 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 6rem;
+  background-color: rgb(126, 186, 255);
+  color: rgb(255, 255, 255);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.sign-in {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #1976d2;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.sign-in:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Dark Theme Navbar */
+.dark-theme .navbar {
+  background-color: #0f172a;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .nav-links a {
+  color: #e8eaed;
+}
+
+.dark-theme .sign-in {
+  background-color: #3c4043;
+  border-color: #5f6368;
+  color: #e8eaed;
+}
+
+.dark-theme .sign-in:hover {
+  background-color: #484c50;
+}

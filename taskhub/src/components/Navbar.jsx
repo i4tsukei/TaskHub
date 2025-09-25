@@ -1,8 +1,8 @@
 import './Navbar.css';
 
-function Navbar({ currentPage, setCurrentPage }) {
+function Navbar({ currentPage, setCurrentPage, darkTheme }) {
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="logo">TaskHub</div>
       <ul className="nav-links">
         <li><a href="#home" onClick={() => setCurrentPage('home')}>Home</a></li>

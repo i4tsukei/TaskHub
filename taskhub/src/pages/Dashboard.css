@@ -1,0 +1,232 @@
+.dashboard-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  position: relative;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background: rgb(126, 186, 255);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(126, 186, 255, 0.3);
+}
+
+.menu-toggle.open {
+  background: white;
+  color: rgb(126, 186, 255);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 240px;
+  height: 100vh;
+  background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+  border-right: 1px solid #e8eaed;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(60, 64, 67, 0.15);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.show {
+  left: 0;
+}
+
+.sidebar-content {
+  padding: 90px 16px 16px 16px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  color: #5f6368;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 4px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  gap: 12px;
+  position: relative;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+  background-color: #f8f9fa;
+  color: #202124;
+  transform: translateX(2px);
+  border-left-color: #e8f0fe;
+}
+
+.sidebar-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: inherit;
+  letter-spacing: 0.25px;
+}
+
+.dashboard-content {
+  padding: 2rem;
+  margin-left: 0;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-content.sidebar-open {
+  margin-left: 240px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  color: #1565c0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #5f6368;
+}
+
+.activities-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.today-section,
+.upcoming-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(60, 64, 67, 0.1);
+}
+
+.today-section h2,
+.upcoming-section h2 {
+  font-size: 1.3rem;
+  color: #202124;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid #1a73e8;
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateX(4px);
+}
+
+.event-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-title {
+  font-weight: 500;
+  color: #202124;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.event-icon {
+  font-size: 16px;
+}
+
+.event-time {
+  font-size: 14px;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.event-date {
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.no-events {
+  text-align: center;
+  color: #9aa0a6;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.quick-actions {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.quick-action-btn {
+  background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(66, 165, 245, 0.4);
+}
+
+@media (max-width: 768px) {
+  .activities-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .dashboard-content {
+    padding: 1rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+}

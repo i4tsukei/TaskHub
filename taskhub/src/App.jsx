@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
@@ -7,20 +7,33 @@ import Login from "./pages/Login.jsx";
 import Cadastro from "./pages/Cadastro.jsx";
 import Contato from "./pages/Contato.jsx";
 import Sobre from "./pages/Sobre.jsx";
+import Perfil from "./pages/Perfil.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 import Footer from "./pages/Footer.jsx";
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
+    if (page) {
+      setCurrentPage(page);
+    }
+  }, []);
 
   const renderPage = () => {
     switch(currentPage) {
       case 'home': return <Home setCurrentPage={setCurrentPage}/>;
-      case 'agenda': return <Agenda/>;
+      case 'agenda': return <Agenda darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
       case 'login': return <Login setCurrentPage={setCurrentPage}/>;
       case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage}/>;
       case 'contato': return <Contato/>;
       case 'sobre': return <Sobre/>;
+      case 'perfil': return <Perfil/>;
+      case 'dashboard': return <Dashboard/>;
 
       default: return <Home setCurrentPage={setCurrentPage}/>;
     }
@@ -28,9 +41,9 @@ function App() {
 
   return (
     <div>
-      {currentPage !== 'login' && currentPage !== 'cadastro' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage}/>}
+      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>}
       {renderPage()}
-      {currentPage !== 'login' && currentPage !== 'cadastro' && <Footer/>}
+      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'agenda' && <Footer/>}
     </div>
   )
 }

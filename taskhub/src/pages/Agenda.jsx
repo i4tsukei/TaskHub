@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Agenda.css';
 
-function Agenda() {
+function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
   const [events, setEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -14,15 +14,131 @@ function Agenda() {
     description: '',
     checklist: [],
     image: null,
-    color: '#1a73e8'
+    color: '#1a73e8',
+    icon: ''
   });
   const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0, eventId: null });
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+
   const [activeSettingsTab, setActiveSettingsTab] = useState('geral');
+  const [localDarkTheme, setLocalDarkTheme] = useState(darkTheme);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
+  const handleThemeChange = (isDark) => {
+    setLocalDarkTheme(isDark);
+    if (setDarkTheme) setDarkTheme(isDark);
+  };
+
+
+  const eventIcons = {
+    default: '',
+    meeting: '👥',
+    work: '💼',
+    personal: '👤',
+    birthday: '🎂',
+    reminder: '⏰',
+    travel: '✈️',
+    health: '🏥',
+    sport: '⚽',
+    food: '🍽️',
+    shopping: '🛍️',
+    car: '🚗',
+    home: '🏠',
+    school: '🏫',
+    money: '💰',
+    heart: '❤️',
+    star: '⭐',
+    fire: '🔥',
+    music: '🎵',
+    movie: '🎥',
+    book: '📚',
+    phone: '📱',
+    email: '📧',
+    calendar: '📅',
+    gift: '🎁',
+    party: '🎉',
+    coffee: '☕',
+    pizza: '🍕',
+    beach: '🏖️',
+    mountain: '⛰️',
+    sun: '☀️',
+    rain: '🌧️',
+    snow: '❄️',
+    tree: '🌳',
+    flower: '🌸',
+    dog: '🐶',
+    cat: '🐱',
+    smile: '😄',
+    laugh: '😂',
+    love: '😍',
+    cool: '😎',
+    think: '🤔',
+    sleep: '😴',
+    rocket: '🚀',
+    trophy: '🏆',
+    medal: '🏅',
+    crown: '👑',
+    diamond: '💎',
+    key: '🔑',
+    lock: '🔒',
+    bulb: '💡',
+    battery: '🔋',
+    wifi: '📶',
+    camera: '📷',
+    video: '📹',
+    game: '🎮',
+    dice: '🎲',
+    art: '🎨',
+    brush: '🖌️',
+    scissors: '✂️',
+    hammer: '🔨',
+    wrench: '🔧',
+    pill: '💊',
+    bandage: '🩹',
+    glasses: '👓',
+    hat: '🎩',
+    shirt: '👕',
+    shoe: '👟',
+    bag: '👜',
+    umbrella: '☂️',
+    watch: '⌚',
+    ring: '💍',
+    lipstick: '💄',
+    perfume: '👜',
+    soap: '🧼',
+    toothbrush: '🦷',
+    shower: '🚿',
+    toilet: '🚽',
+    door: '🚪',
+    window: '🪟',
+    bed: '🛏️',
+    chair: '🪑',
+    table: '🍽️',
+    lamp: '💡',
+    tv: '📺',
+    computer: '💻',
+    keyboard: '⌨️',
+    mouse: '🖱️',
+    printer: '🖨️',
+    fax: '📠',
+    dvd: '📀',
+    cd: '💿',
+    tape: '📼',
+    radio: '📻',
+    microphone: '🎤',
+    headphones: '🎧',
+    speaker: '🔊',
+    bell: '🔔',
+    mute: '🔇',
+    volume: '🔊',
+    signal: '📶',
+    antenna: '📡',
+    satellite: '🛰️'
+  };
 
   const eventColors = {
     purple: '#c684d1ff',
@@ -45,7 +161,7 @@ function Agenda() {
         // Criando novo evento
         setEvents([...events, { ...eventForm, id: Date.now() }]);
       }
-      setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8' });
+      setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8', icon: '' });
       setShowModal(false);
     }
   };
@@ -73,6 +189,13 @@ function Agenda() {
     setContextMenu({ show: false, x: 0, y: 0, eventId: null });
   };
 
+  const changeEventIcon = (eventId, icon) => {
+    setEvents(events.map(event => 
+      event.id === eventId ? { ...event, icon } : event
+    ));
+    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
+  };
+
   const closeContextMenu = () => {
     setContextMenu({ show: false, x: 0, y: 0, eventId: null });
   };
@@ -82,7 +205,7 @@ function Agenda() {
   };
 
   const handleNewEvent = () => {
-    setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8' });
+    setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8', icon: '' });
     setShowModal(true);
     setShowSidebar(false);
   };
@@ -150,14 +273,30 @@ function Agenda() {
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = firstDay.getDay();
+    
+    const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+    const prevMonthLastDay = new Date(prevYear, prevMonth + 1, 0).getDate();
 
     const days = [];
-    for (let i = 0; i < startingDayOfWeek; i++) {
-      days.push(null);
+    
+    // Previous month days
+    for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+      days.push({ day: prevMonthLastDay - i, type: 'prev' });
     }
+    
+    // Current month days
     for (let day = 1; day <= daysInMonth; day++) {
-      days.push(day);
+      days.push({ day, type: 'current' });
     }
+    
+    // Next month days
+    const totalCells = 42; // 6 rows × 7 days
+    const remainingCells = totalCells - days.length;
+    for (let day = 1; day <= remainingCells; day++) {
+      days.push({ day, type: 'next' });
+    }
+    
     return days;
   };
 
@@ -171,6 +310,8 @@ function Agenda() {
     const dateStr = formatDate(day);
     return events.filter(event => event.date === dateStr);
   };
+
+
 
   const handleDayClick = (day) => {
     if (day) {
@@ -204,38 +345,34 @@ function Agenda() {
   };
 
   return (
-    <div className="agenda-container" onClick={closeContextMenu}>
-      <button className="menu-toggle" onClick={toggleSidebar}>
+    <div className={`agenda-container ${localDarkTheme ? 'dark-theme' : ''}`} onClick={closeContextMenu}>
+      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
         ☰
       </button>
-      {showSidebar && (
-        <div className="sidebar">
-          <div className="sidebar-content">
+      <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+        <div className="sidebar-content">
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=perfil'}>
+            <div className="sidebar-label">Perfil</div>
+          </div>
           <div className="sidebar-item" onClick={handleNewEvent}>
-            <div className="sidebar-icon">+</div>
             <div className="sidebar-label">Novo Evento</div>
           </div>
-          <div className="sidebar-item" onClick={() => window.location.reload()}>
-            <div className="sidebar-icon">⌂</div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Página Inicial</div>
           </div>
           <div className="sidebar-item" onClick={() => setShowNotifications(true)}>
-            <div className="sidebar-icon">◉</div>
             <div className="sidebar-label">Notificações</div>
           </div>
           <div className="sidebar-item" onClick={handleSettings}>
-            <div className="sidebar-icon">⚙</div>
             <div className="sidebar-label">Configurações</div>
           </div>
           <div className="sidebar-item">
-            <div className="sidebar-icon">↓</div>
             <div className="sidebar-label">Exportar</div>
           </div>
-          </div>
         </div>
-      )}
+      </div>
       
-      <div className="calendar">
+      <div className={`calendar ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="calendar-navigation">
           <div className="month-year">
             <select 
@@ -266,29 +403,28 @@ function Agenda() {
           <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
         </div>
         <div className="calendar-grid">
-          {getDaysInMonth().map((day, index) => (
+          {getDaysInMonth().map((dayObj, index) => (
             <div 
               key={index} 
-              className={`calendar-day ${day ? 'active' : 'inactive'}`}
-              onClick={() => handleDayClick(day)}
+              className={`calendar-day ${dayObj.type === 'current' ? 'active' : dayObj.type === 'prev' ? 'prev-month' : 'next-month'}`}
+              onClick={() => dayObj.type === 'current' && handleDayClick(dayObj.day)}
             >
-              {day && (
-                <>
-                  <span className="day-number">{day}</span>
-                  <div className="day-events">
-                    {getEventsForDay(day).map(event => (
-                      <div 
-                        key={event.id} 
-                        className="event-preview"
-                        style={{ backgroundColor: event.color || '#1a73e8' }}
-                        onClick={(e) => handleEventClick(e, event)}
-                        onContextMenu={(e) => handleEventRightClick(e, event.id)}
-                      >
-                        {event.title}
-                      </div>
-                    ))}
-                  </div>
-                </>
+              <span className="day-number">{dayObj.day}</span>
+              {dayObj.type === 'current' && (
+                <div className="day-events">
+                  {getEventsForDay(dayObj.day).map(event => (
+                    <div 
+                      key={event.id} 
+                      className="event-preview"
+                      style={{ backgroundColor: event.color || '#1a73e8' }}
+                      onClick={(e) => handleEventClick(e, event)}
+                      onContextMenu={(e) => handleEventRightClick(e, event.id)}
+                    >
+                      {event.icon && <span className="event-icon">{event.icon}</span>}
+                      {event.title}
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           ))}
@@ -493,6 +629,22 @@ function Agenda() {
               ))}
             </div>
           </div>
+          <div className="context-menu-divider"></div>
+          <div className="context-menu-section">
+            <div className="context-menu-title">Alterar ícone</div>
+            <div className="icon-options">
+              {Object.entries(eventIcons).map(([name, icon]) => (
+                <div
+                  key={name}
+                  className="icon-option"
+                  onClick={() => changeEventIcon(contextMenu.eventId, icon)}
+                  title={name}
+                >
+                  {icon || '○'}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
@@ -523,10 +675,9 @@ function Agenda() {
                 </div>
                 <div className="setting-item">
                   <label>Tema:</label>
-                  <select className="setting-select">
+                  <select className="setting-select" value={localDarkTheme ? 'dark' : 'light'} onChange={(e) => handleThemeChange(e.target.value === 'dark')}>
                     <option value="light">Claro</option>
                     <option value="dark">Escuro</option>
-                    <option value="auto">Automático</option>
                   </select>
                 </div>
               </div>
@@ -540,7 +691,15 @@ function Agenda() {
           <div className="notifications-modal">
             <div className="notifications-header">
               <h2>Notificações</h2>
-              <button className="close-btn" onClick={() => setShowNotifications(false)}>×</button>
+              <div className="notifications-controls">
+                <button 
+                  className={`toggle-notifications-btn ${notificationsEnabled ? 'enabled' : 'disabled'}`}
+                  onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+                >
+                  {notificationsEnabled ? 'Desativar' : 'Ativar'}
+                </button>
+                <button className="close-btn" onClick={() => setShowNotifications(false)}>×</button>
+              </div>
             </div>
             
             <div className="notifications-body">
@@ -573,13 +732,11 @@ function Agenda() {
                 <div className="empty-subtext">Nenhuma notificação pendente</div>
               </div>
             </div>
-            
-            <div className="notifications-footer">
-              <button className="clear-all-btn">Limpar todas</button>
-            </div>
           </div>
         </div>
       )}
+
+
     </div>
   );
 }

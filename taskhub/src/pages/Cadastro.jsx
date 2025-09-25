@@ -16,7 +16,7 @@ function Cadastro({ setCurrentPage }) {
       return;
     }
     console.log('Cadastro:', formData);
-    setCurrentPage('home');
+    setCurrentPage('dashboard');
   };
 
   return (
