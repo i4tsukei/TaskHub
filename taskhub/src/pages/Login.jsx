@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Login.css';
 
-function Login({ setCurrentPage }) {
+function Login({ setCurrentPage, darkTheme }) {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -26,7 +26,7 @@ function Login({ setCurrentPage }) {
 
   if (showEmailForm) {
     return (
-      <div className="login-container">
+      <div className={`login-container ${darkTheme ? 'dark-theme' : ''}`}>
         <div className="login-card">
           <div className="login-header">
             <h1>Entrar com Email</h1>
@@ -69,7 +69,7 @@ function Login({ setCurrentPage }) {
   }
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="login-card">
         <div className="login-header">
           <h1>Entrar no TaskHub</h1>

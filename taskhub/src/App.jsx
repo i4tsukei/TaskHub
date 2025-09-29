@@ -26,21 +26,21 @@ function App() {
 
   const renderPage = () => {
     switch(currentPage) {
-      case 'home': return <Home setCurrentPage={setCurrentPage}/>;
+      case 'home': return <Home setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
       case 'agenda': return <Agenda darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
-      case 'login': return <Login setCurrentPage={setCurrentPage}/>;
-      case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage}/>;
-      case 'contato': return <Contato/>;
-      case 'sobre': return <Sobre/>;
-      case 'perfil': return <Perfil/>;
-      case 'dashboard': return <Dashboard/>;
+      case 'login': return <Login setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
+      case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
+      case 'contato': return <Contato darkTheme={darkTheme}/>;
+      case 'sobre': return <Sobre darkTheme={darkTheme}/>;
+      case 'perfil': return <Perfil darkTheme={darkTheme}/>;
+      case 'dashboard': return <Dashboard darkTheme={darkTheme}/>;
 
       default: return <Home setCurrentPage={setCurrentPage}/>;
     }
   };
 
   return (
-    <div>
+    <div className={darkTheme ? 'dark-theme' : ''}>
       {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>}
       {renderPage()}
       {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'agenda' && <Footer/>}

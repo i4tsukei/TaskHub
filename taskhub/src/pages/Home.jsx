@@ -1,8 +1,8 @@
 import './Home.css';
 
-function Home({ setCurrentPage }) {
+function Home({ setCurrentPage, darkTheme }) {
   return (
-    <div className="home">
+    <div className={`home ${darkTheme ? 'dark-theme' : ''}`}>
       <section className="hero">
         <div className="hero-content">
           <h1 className="hero-title">

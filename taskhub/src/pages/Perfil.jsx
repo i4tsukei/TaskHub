@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Perfil.css';
 
-function Perfil() {
+function Perfil({ darkTheme }) {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -101,7 +101,7 @@ function Perfil() {
   };
 
   return (
-    <div className="perfil-container">
+    <div className={`perfil-container ${darkTheme ? 'dark-theme' : ''}`}>
       <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
         ☰
       </button>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Cadastro.css';
 
-function Cadastro({ setCurrentPage }) {
+function Cadastro({ setCurrentPage, darkTheme }) {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -20,7 +20,7 @@ function Cadastro({ setCurrentPage }) {
   };
 
   return (
-    <div className="cadastro-container">
+    <div className={`cadastro-container ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="cadastro-card">
         <div className="cadastro-header">
           <h1>Criar Conta no TaskHub</h1>

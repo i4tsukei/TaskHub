@@ -366,9 +366,6 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
           <div className="sidebar-item" onClick={handleSettings}>
             <div className="sidebar-label">Configurações</div>
           </div>
-          <div className="sidebar-item">
-            <div className="sidebar-label">Exportar</div>
-          </div>
         </div>
       </div>
       

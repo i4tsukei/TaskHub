@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Dashboard.css';
 
-function Dashboard() {
+function Dashboard({ darkTheme }) {
   const [showSidebar, setShowSidebar] = useState(false);
   const [events] = useState([
     { id: 1, title: 'Reunião de equipe', date: '2025-01-15', time: '09:00', color: '#1a73e8', icon: '👥' },
@@ -29,7 +29,7 @@ function Dashboard() {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className={`dashboard-container ${darkTheme ? 'dark-theme' : ''}`}>
       <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
         ☰
       </button>

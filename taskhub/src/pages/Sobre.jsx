@@ -1,8 +1,8 @@
 import './Sobre.css';
 
-function Sobre() {
+function Sobre({ darkTheme }) {
   return (
-    <div className="sobre">
+    <div className={`sobre ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="sobre-container">
         <div className="sobre-header">
           <h1>Sobre o TaskHub</h1>

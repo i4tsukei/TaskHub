@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Contato.css';
 
-function Contato() {
+function Contato({ darkTheme }) {
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -17,7 +17,7 @@ function Contato() {
   };
 
   return (
-    <div className="contato">
+    <div className={`contato ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="contato-container">
         <div className="contato-header">
           <h1>Entre em contato</h1>
