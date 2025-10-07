@@ -4,7 +4,7 @@ import './Perfil.css';
 function Perfil({ darkTheme }) {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
   const [activeSection, setActiveSection] = useState('dados');
 
   const handlePhotoClick = () => {
@@ -70,19 +70,7 @@ function Perfil({ darkTheme }) {
             <button className="change-password-btn">Alterar Senha</button>
           </div>
         );
-      case 'conta':
-        return (
-          <div className="account-section">
-            <div className="account-info">
-              <p>Membro desde: Janeiro 2025</p>
-              <p>Último acesso: Hoje às 14:30</p>
-            </div>
-            <div className="account-actions">
-              <button className="export-btn">Exportar Dados</button>
-              <button className="delete-btn">Excluir Conta</button>
-            </div>
-          </div>
-        );
+
       default:
         return null;
     }
@@ -106,9 +94,6 @@ function Perfil({ darkTheme }) {
           </div>
           <div className={`sidebar-item ${activeSection === 'seguranca' ? 'active' : ''}`} onClick={() => setActiveSection('seguranca')}>
             <div className="sidebar-label">Segurança</div>
-          </div>
-          <div className={`sidebar-item ${activeSection === 'conta' ? 'active' : ''}`} onClick={() => setActiveSection('conta')}>
-            <div className="sidebar-label">Conta</div>
           </div>
         </div>
       </div>
@@ -145,7 +130,7 @@ function Perfil({ darkTheme }) {
           
           {renderContent()}
           
-          {activeSection !== 'seguranca' && activeSection !== 'conta' && (
+          {activeSection !== 'seguranca' && (
             <div className="perfil-actions">
               <button className="save-btn">Salvar</button>
             </div>

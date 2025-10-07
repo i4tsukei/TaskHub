@@ -33,7 +33,7 @@ function App() {
       case 'contato': return <Contato darkTheme={darkTheme}/>;
       case 'sobre': return <Sobre darkTheme={darkTheme}/>;
       case 'perfil': return <Perfil darkTheme={darkTheme}/>;
-      case 'dashboard': return <Dashboard darkTheme={darkTheme}/>;
+      case 'dashboard': return <Dashboard darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
 
       default: return <Home setCurrentPage={setCurrentPage}/>;
     }

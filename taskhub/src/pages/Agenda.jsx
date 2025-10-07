@@ -610,22 +610,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
               ))}
             </div>
           </div>
-          <div className="context-menu-divider"></div>
-          <div className="context-menu-section">
-            <div className="context-menu-title">Alterar ícone</div>
-            <div className="icon-options">
-              {Object.entries(eventIcons).map(([name, icon]) => (
-                <div
-                  key={name}
-                  className="icon-option"
-                  onClick={() => changeEventIcon(contextMenu.eventId, icon)}
-                  title={name}
-                >
-                  {icon || '○'}
-                </div>
-              ))}
-            </div>
-          </div>
+
         </div>
       )}
 
