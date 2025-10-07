@@ -14,15 +14,7 @@ function Login({ setCurrentPage, darkTheme }) {
     setCurrentPage('dashboard');
   };
 
-  const handleGoogleLogin = () => {
-    console.log('Login com Google');
-    setCurrentPage('dashboard');
-  };
 
-  const handleAppleLogin = () => {
-    console.log('Login com Apple');
-    setCurrentPage('dashboard');
-  };
 
   if (showEmailForm) {
     return (
@@ -77,20 +69,6 @@ function Login({ setCurrentPage, darkTheme }) {
         </div>
         
         <div className="login-options">
-          <button className="social-btn google-btn" onClick={handleGoogleLogin}>
-            <span className="social-icon">G</span>
-            Continuar com Google
-          </button>
-          
-          <button className="social-btn apple-btn" onClick={handleAppleLogin}>
-            <span className="social-icon"><apple className="png"></apple> </span>
-            Continuar com Apple
-          </button>
-          
-          <div className="divider">
-            <span>ou</span>
-          </div>
-          
           <button className="email-btn" onClick={() => setShowEmailForm(true)}>
             Entrar com Email
           </button>
