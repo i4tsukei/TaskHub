@@ -416,7 +416,6 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
         <div className="event-overlay">
           <div className="event-form">
             <div className="form-header">
-              <div className="event-color" style={{ backgroundColor: eventForm.color }}></div>
               <input
                 type="text"
                 placeholder="Adicionar título"
