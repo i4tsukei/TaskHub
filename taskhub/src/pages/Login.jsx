@@ -32,7 +32,6 @@ function Login({ setCurrentPage, darkTheme }) {
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                placeholder="seu@email.com"
                 required
               />
             </div>
@@ -43,7 +42,6 @@ function Login({ setCurrentPage, darkTheme }) {
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                placeholder="Sua senha"
                 required
               />
             </div>
@@ -51,10 +49,7 @@ function Login({ setCurrentPage, darkTheme }) {
             <button type="submit" className="login-btn">Entrar</button>
           </form>
           
-          <div className="login-footer">
-            <button className="back-btn" onClick={() => setShowEmailForm(false)}>Voltar</button>
-            <span className="link">Esqueceu a senha?</span>
-          </div>
+
         </div>
       </div>
     );

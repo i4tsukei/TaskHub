@@ -57,6 +57,9 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
           <div className="sidebar-item" onClick={() => setShowSettings(true)}>
             <div className="sidebar-label">Configurações</div>
           </div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
+            <div className="sidebar-label">Sair</div>
+          </div>
         </div>
       </div>
 
