@@ -55,29 +55,17 @@ function Perfil({ darkTheme }) {
             </div>
           </div>
         );
-      case 'privacidade':
-        return (
-          <div className="privacy-section">
-            <div className="privacy-item">
-              <label>Mostrar email</label>
-              <input type="checkbox" />
-            </div>
-            <div className="privacy-item">
-              <label>Receber notificações</label>
-              <input type="checkbox" defaultChecked />
-            </div>
-          </div>
-        );
+
       case 'seguranca':
         return (
           <div className="security-section">
             <div className="field-group">
               <label>Senha Atual</label>
-              <input type="password" placeholder="Digite sua senha atual" />
+              <input type="password"/>
             </div>
             <div className="field-group">
               <label>Nova Senha</label>
-              <input type="password" placeholder="Digite a nova senha" />
+              <input type="password"/>
             </div>
             <button className="change-password-btn">Alterar Senha</button>
           </div>
@@ -115,9 +103,6 @@ function Perfil({ darkTheme }) {
           </div>
           <div className={`sidebar-item ${activeSection === 'dados' ? 'active' : ''}`} onClick={() => setActiveSection('dados')}>
             <div className="sidebar-label">Dados Pessoais</div>
-          </div>
-          <div className={`sidebar-item ${activeSection === 'privacidade' ? 'active' : ''}`} onClick={() => setActiveSection('privacidade')}>
-            <div className="sidebar-label">Privacidade</div>
           </div>
           <div className={`sidebar-item ${activeSection === 'seguranca' ? 'active' : ''}`} onClick={() => setActiveSection('seguranca')}>
             <div className="sidebar-label">Segurança</div>

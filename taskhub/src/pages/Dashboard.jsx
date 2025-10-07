@@ -4,9 +4,7 @@ import './Dashboard.css';
 function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
   const [localDarkTheme, setLocalDarkTheme] = useState(darkTheme);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [events] = useState([
     { id: 1, title: 'Reunião de equipe', date: '2025-01-15', time: '09:00', color: '#1a73e8', icon: '👥' },
     { id: 2, title: 'Apresentação projeto', date: '2025-01-16', time: '14:30', color: '#34a853', icon: '💼' },
@@ -50,9 +48,6 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=perfil'}>
             <div className="sidebar-label">Perfil</div>
-          </div>
-          <div className="sidebar-item" onClick={() => setShowNotifications(true)}>
-            <div className="sidebar-label">Notificações</div>
           </div>
           <div className="sidebar-item" onClick={() => setShowSettings(true)}>
             <div className="sidebar-label">Configurações</div>
@@ -156,60 +151,24 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
                   </select>
                 </div>
               </div>
+              
+              <div className="settings-section">
+                <h3>Privacidade</h3>
+                <div className="privacy-item">
+                  <label>Mostrar email</label>
+                  <input type="checkbox" />
+                </div>
+                <div className="privacy-item">
+                  <label>Receber notificações</label>
+                  <input type="checkbox" defaultChecked />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {showNotifications && (
-        <div className="event-overlay">
-          <div className="notifications-modal">
-            <div className="notifications-header">
-              <h2>Notificações</h2>
-              <div className="notifications-controls">
-                <button 
-                  className={`toggle-notifications-btn ${notificationsEnabled ? 'enabled' : 'disabled'}`}
-                  onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-                >
-                  {notificationsEnabled ? 'Desativar' : 'Ativar'}
-                </button>
-                <button className="close-btn" onClick={() => setShowNotifications(false)}>×</button>
-              </div>
-            </div>
-            
-            <div className="notifications-body">
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Evento próximo</div>
-                  <div className="notification-text">Reunião de equipe em 15 minutos</div>
-                  <div className="notification-time">Há 2 minutos</div>
-                </div>
-              </div>
-              
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Tarefa concluída</div>
-                  <div className="notification-text">Apresentação finalizada com sucesso</div>
-                  <div className="notification-time">Há 1 hora</div>
-                </div>
-              </div>
-              
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Lembrete</div>
-                  <div className="notification-text">Revisar documentos para reunião de amanhã</div>
-                  <div className="notification-time">Há 3 horas</div>
-                </div>
-              </div>
-              
-              <div className="notification-empty">
-                <div className="empty-text">Você está em dia!</div>
-                <div className="empty-subtext">Nenhuma notificação pendente</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }
