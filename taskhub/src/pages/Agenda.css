@@ -11,18 +11,18 @@
 
 .menu-toggle {
   position: fixed;
-  top: 20px;
+  top: 10px;
   left: 20px;
   z-index: 1001;
-  background: rgb(126, 186, 255);
-  color: white;
+  background: white;
+  color: #333;
   border: none;
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(126, 186, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-toggle.open {
@@ -1319,6 +1319,17 @@
 
 .detail-item {
   margin-bottom: 20px;
+}
+
+.detail-item.left-aligned {
+  text-align: left;
+}
+
+.detail-item.left-aligned .detail-label,
+.detail-item.left-aligned .detail-value,
+.detail-item.left-aligned .detail-description {
+  text-align: left;
+  display: block;
 }
 
 .detail-label {

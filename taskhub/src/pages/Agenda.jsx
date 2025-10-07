@@ -21,12 +21,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
-
-  const [activeSettingsTab, setActiveSettingsTab] = useState('geral');
   const [localDarkTheme, setLocalDarkTheme] = useState(darkTheme);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   const handleThemeChange = (isDark) => {
     setLocalDarkTheme(isDark);
@@ -210,9 +205,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
     setShowSidebar(false);
   };
 
-  const handleSettings = () => {
-    setShowSettings(true);
-  };
+
 
   const handleEventClick = (e, event) => {
     e.stopPropagation();
@@ -351,20 +344,11 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
       </button>
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
-          <div className="sidebar-item" onClick={() => window.location.href = '/?page=perfil'}>
-            <div className="sidebar-label">Perfil</div>
-          </div>
           <div className="sidebar-item" onClick={handleNewEvent}>
             <div className="sidebar-label">Novo Evento</div>
           </div>
-          <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
             <div className="sidebar-label">Página Inicial</div>
-          </div>
-          <div className="sidebar-item" onClick={() => setShowNotifications(true)}>
-            <div className="sidebar-label">Notificações</div>
-          </div>
-          <div className="sidebar-item" onClick={handleSettings}>
-            <div className="sidebar-label">Configurações</div>
           </div>
         </div>
       </div>
@@ -552,28 +536,28 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
             
             <div className="details-body">
               {selectedEvent.date && (
-                <div className="detail-item">
+                <div className="detail-item left-aligned">
                   <span className="detail-label">Data:</span>
                   <span className="detail-value">{selectedEvent.date.split('-').reverse().join('/')}</span>
                 </div>
               )}
               
               {selectedEvent.time && (
-                <div className="detail-item">
+                <div className="detail-item left-aligned">
                   <span className="detail-label">Horário:</span>
                   <span className="detail-value">{selectedEvent.time}</span>
                 </div>
               )}
               
               {selectedEvent.description && (
-                <div className="detail-item">
+                <div className="detail-item left-aligned">
                   <span className="detail-label">Descrição:</span>
                   <p className="detail-description">{selectedEvent.description}</p>
                 </div>
               )}
               
               {selectedEvent.checklist && selectedEvent.checklist.length > 0 && (
-                <div className="detail-item">
+                <div className="detail-item left-aligned">
                   <span className="detail-label">Checklist:</span>
                   <div className="detail-checklist">
                     {selectedEvent.checklist.map((item, index) => (
@@ -592,7 +576,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
               )}
               
               {selectedEvent.image && (
-                <div className="detail-item">
+                <div className="detail-item left-aligned">
                   <span className="detail-label">Anexo:</span>
                   <img src={selectedEvent.image} alt="Anexo" className="detail-image" />
                 </div>
@@ -645,93 +629,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
         </div>
       )}
 
-      {showSettings && (
-        <div className="event-overlay">
-          <div className="settings-modal">
-            <div className="settings-header">
-              <h2>Configurações</h2>
-              <button className="close-btn" onClick={() => setShowSettings(false)}>×</button>
-            </div>
-            
-            <div className="settings-body">
-              <div className="settings-section">
-                <h3>Preferências</h3>
-                <div className="setting-item">
-                  <label>Primeiro dia da semana:</label>
-                  <select className="setting-select">
-                    <option value="0">Domingo</option>
-                    <option value="1">Segunda-feira</option>
-                  </select>
-                </div>
-                <div className="setting-item">
-                  <label>Formato de hora:</label>
-                  <select className="setting-select">
-                    <option value="24">24 horas</option>
-                    <option value="12">12 horas (AM/PM)</option>
-                  </select>
-                </div>
-                <div className="setting-item">
-                  <label>Tema:</label>
-                  <select className="setting-select" value={localDarkTheme ? 'dark' : 'light'} onChange={(e) => handleThemeChange(e.target.value === 'dark')}>
-                    <option value="light">Claro</option>
-                    <option value="dark">Escuro</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
-      {showNotifications && (
-        <div className="event-overlay">
-          <div className="notifications-modal">
-            <div className="notifications-header">
-              <h2>Notificações</h2>
-              <div className="notifications-controls">
-                <button 
-                  className={`toggle-notifications-btn ${notificationsEnabled ? 'enabled' : 'disabled'}`}
-                  onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-                >
-                  {notificationsEnabled ? 'Desativar' : 'Ativar'}
-                </button>
-                <button className="close-btn" onClick={() => setShowNotifications(false)}>×</button>
-              </div>
-            </div>
-            
-            <div className="notifications-body">
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Evento próximo</div>
-                  <div className="notification-text">Reunião de equipe em 15 minutos</div>
-                  <div className="notification-time">Há 2 minutos</div>
-                </div>
-              </div>
-              
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Tarefa concluída</div>
-                  <div className="notification-text">Apresentação finalizada com sucesso</div>
-                  <div className="notification-time">Há 1 hora</div>
-                </div>
-              </div>
-              
-              <div className="notification-item">
-                <div className="notification-content">
-                  <div className="notification-title">Lembrete</div>
-                  <div className="notification-text">Revisar documentos para reunião de amanhã</div>
-                  <div className="notification-time">Há 3 horas</div>
-                </div>
-              </div>
-              
-              <div className="notification-empty">
-                <div className="empty-text">Você está em dia!</div>
-                <div className="empty-subtext">Nenhuma notificação pendente</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
 
     </div>

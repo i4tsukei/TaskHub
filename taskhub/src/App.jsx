@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className={darkTheme ? 'dark-theme' : ''}>
-      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>}
+      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && currentPage !== 'agenda' && currentPage !== 'perfil' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>}
       {renderPage()}
       {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'agenda' && <Footer/>}
     </div>

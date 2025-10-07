@@ -107,6 +107,12 @@ function Perfil({ darkTheme }) {
       </button>
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
+            <div className="sidebar-label">Eventos</div>
+          </div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=agenda'}>
+            <div className="sidebar-label">Agenda</div>
+          </div>
           <div className={`sidebar-item ${activeSection === 'dados' ? 'active' : ''}`} onClick={() => setActiveSection('dados')}>
             <div className="sidebar-label">Dados Pessoais</div>
           </div>
@@ -154,9 +160,11 @@ function Perfil({ darkTheme }) {
           
           {renderContent()}
           
-          <div className="perfil-actions">
-            <button className="save-btn">Salvar</button>
-          </div>
+          {activeSection !== 'seguranca' && activeSection !== 'conta' && (
+            <div className="perfil-actions">
+              <button className="save-btn">Salvar</button>
+            </div>
+          )}
         </div>
       </div>
     </div>
