@@ -6,7 +6,7 @@
   font-weight: 600;
   height: 100vh;
   position: relative;
-  background-color: #f8f9fa;
+  background-color: #ffffff !important;
 }
 
 .menu-toggle {
@@ -367,128 +367,7 @@
   background: #1557b0;
 }
 
-/* Dark Theme Styles */
-.agenda-container.dark-theme {
-  background-color: #1a1a1a;
-  color: #e8eaed;
-}
 
-.dark-theme .menu-toggle {
-  background: #3c4043;
-  color: #e8eaed;
-  box-shadow: 0 4px 15px rgba(60, 64, 67, 0.3);
-}
-
-.dark-theme .menu-toggle.open {
-  background: #2d2d2d;
-  color: #e8eaed;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.dark-theme .menu-toggle:hover {
-  box-shadow: 0 8px 25px rgba(60, 64, 67, 0.4);
-}
-
-.dark-theme .menu-toggle.open:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-.dark-theme .sidebar {
-  background: linear-gradient(180deg, #2d2d2d 0%, #1f1f1f 100%);
-  border-right-color: #3c4043;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark-theme .sidebar-item {
-  color: #e8eaed;
-  background: rgba(60, 64, 67, 0.3);
-  border-color: rgba(95, 99, 104, 0.3);
-}
-
-.dark-theme .sidebar-item:hover {
-  background-color: #3c4043;
-  color: #ffffff;
-  border-left-color: #484c50;
-}
-
-.dark-theme .sidebar-item:active {
-  background-color: #484c50;
-  color: #1a73e8;
-  border-left-color: #1a73e8;
-}
-
-.dark-theme .calendar {
-  background: #1a1a1a;
-}
-
-.dark-theme .calendar-navigation {
-  background-color: #1a1a1a;
-  color: #e8eaed;
-}
-
-.dark-theme .calendar-header {
-  background-color: rgba(60, 64, 67, 0.3);
-  color: #9aa0a6;
-}
-
-.dark-theme .calendar-day {
-  background: #2d2d2d;
-}
-
-.dark-theme .calendar-day:hover {
-  background-color: #3c4043;
-}
-
-
-
-.dark-theme .day-number {
-  color: #e8eaed;
-}
-
-.dark-theme .event-form,
-.dark-theme .event-details,
-.dark-theme .settings-modal,
-.dark-theme .notifications-modal {
-  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
-  color: #e8eaed;
-}
-
-.dark-theme .title-input,
-.dark-theme .date-input,
-.dark-theme .time-input,
-.dark-theme .description-input,
-.dark-theme .checklist-text,
-.dark-theme .setting-select,
-.dark-theme .setting-input {
-  background: #3c4043;
-  color: #e8eaed;
-  border-color: #5f6368;
-}
-
-.dark-theme .title-input:focus,
-.dark-theme .date-input:focus,
-.dark-theme .time-input:focus,
-.dark-theme .description-input:focus,
-.dark-theme .checklist-text:focus,
-.dark-theme .setting-select:focus,
-.dark-theme .setting-input:focus {
-  background: #484c50;
-  border-color: #1a73e8;
-}
-
-.dark-theme .month-selector,
-.dark-theme .year-selector {
-  background: #2d2d2d;
-  color: #e8eaed;
-}
-
-.dark-theme .nav-btn {
-  color: #e8eaed;
-}
-
-.dark-theme .nav-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
 
 .event-icon {
   margin-right: 4px;
@@ -522,13 +401,7 @@
   background: #e8f0fe;
 }
 
-.dark-theme .icon-option {
-  background: #3c4043;
-}
 
-.dark-theme .icon-option:hover {
-  background: #484c50;
-}
 
 .notifications-controls {
   display: flex;
@@ -674,45 +547,7 @@
   font-size: 10px;
 }
 
-/* Dark Theme for Teams Calendar */
-.dark-theme .time-column {
-  background: #2d2d2d;
-  border-right-color: #3c4043;
-}
 
-.dark-theme .time-slot {
-  color: #9aa0a6;
-  border-bottom-color: #3c4043;
-}
-
-.dark-theme .days-header {
-  background: #2d2d2d;
-  border-bottom-color: #3c4043;
-}
-
-.dark-theme .day-header {
-  border-right-color: #3c4043;
-}
-
-.dark-theme .day-name {
-  color: #9aa0a6;
-}
-
-.dark-theme .day-date {
-  color: #e8eaed;
-}
-
-.dark-theme .day-column {
-  border-right-color: #3c4043;
-}
-
-.dark-theme .hour-slot {
-  border-bottom-color: #3c4043;
-}
-
-.dark-theme .hour-slot:hover {
-  background-color: #3c4043;
-}
 
 .calendar {
   width: 100vw;
@@ -721,7 +556,7 @@
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  background: white;
+  background: #ffffff !important;
   transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -734,7 +569,7 @@
   justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: white;
+  background-color: #ffffff !important;
   color: #333;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -811,7 +646,7 @@
 }
 
 .calendar-day {
-  background: white;
+  background: #ffffff !important;
   min-height: 100px;
   padding: 0.5rem;
   position: relative;
@@ -839,16 +674,7 @@
   color: #9ca3af;
 }
 
-.dark-theme .calendar-day.prev-month,
-.dark-theme .calendar-day.next-month {
-  background-color: #1f1f1f;
-  opacity: 0.4;
-}
 
-.dark-theme .calendar-day.prev-month .day-number,
-.dark-theme .calendar-day.next-month .day-number {
-  color: #6b7280;
-}
 
 .day-number {
   font-family: 'Inter', sans-serif;

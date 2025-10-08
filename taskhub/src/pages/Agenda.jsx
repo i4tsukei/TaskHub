@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Agenda.css';
 
-function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
+function Agenda() {
   const [events, setEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -21,12 +21,6 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [localDarkTheme, setLocalDarkTheme] = useState(darkTheme);
-
-  const handleThemeChange = (isDark) => {
-    setLocalDarkTheme(isDark);
-    if (setDarkTheme) setDarkTheme(isDark);
-  };
 
 
   const eventIcons = {
@@ -338,7 +332,7 @@ function Agenda({ darkTheme = false, setDarkTheme = () => {} }) {
   };
 
   return (
-    <div className={`agenda-container ${localDarkTheme ? 'dark-theme' : ''}`} onClick={closeContextMenu}>
+    <div className="agenda-container" style={{backgroundColor: '#ffffff'}} onClick={closeContextMenu}>
       <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
         ☰
       </button>
