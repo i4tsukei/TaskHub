@@ -1,6 +1,14 @@
 import './Home.css';
 
 function Home({ setCurrentPage, darkTheme }) {
+  const currentDate = new Date();
+  const monthNames = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+  const currentMonth = monthNames[currentDate.getMonth()];
+  const currentYear = currentDate.getFullYear();
+  
   return (
     <div className={`home ${darkTheme ? 'dark-theme' : ''}`}>
       <section className="hero">
@@ -14,11 +22,98 @@ function Home({ setCurrentPage, darkTheme }) {
           <button className="cta-button" onClick={() => setCurrentPage('cadastro')}>Começar Agora</button>
         </div>
         <div className="hero-image">
-          <div className="floating-card">
-            <div className="card-header">📅 Hoje</div>
-            <div className="task-item">✓ Reunião às 10h</div>
-            <div className="task-item">📝 Revisar projeto</div>
-            <div className="task-item">🎯 Academia</div>
+          <div className="cards-container">
+            <div className="top-cards">
+              <div className="agenda-preview">
+                <div className="agenda-header">
+                  <span className="month">{currentMonth} {currentYear}</span>
+                  <div className="nav-arrows">
+                    <span>‹</span>
+                    <span>›</span>
+                  </div>
+                </div>
+                <div className="calendar-grid">
+                  <div className="day-header">D</div>
+                  <div className="day-header">S</div>
+                  <div className="day-header">T</div>
+                  <div className="day-header">Q</div>
+                  <div className="day-header">Q</div>
+                  <div className="day-header">S</div>
+                  <div className="day-header">S</div>
+                  <div className="day">31</div>
+                  <div className="day">1</div>
+                  <div className="day">2</div>
+                  <div className="day">3</div>
+                  <div className="day">4</div>
+                  <div className="day">5</div>
+                  <div className="day">6</div>
+                  <div className="day">7</div>
+                  <div className="day">8</div>
+                  <div className="day">9</div>
+                  <div className="day">10</div>
+                  <div className="day">11</div>
+                  <div className="day">12</div>
+                  <div className="day">13</div>
+                  <div className="day today">14</div>
+                  <div className="day event">15</div>
+                  <div className="day">16</div>
+                  <div className="day">17</div>
+                  <div className="day event">18</div>
+                  <div className="day">19</div>
+                  <div className="day">20</div>
+                </div>
+                <div className="event-list">
+                  <div className="event-item">
+                    <span className="event-dot"></span>
+                    <span>Reunião - 10h</span>
+                  </div>
+                  <div className="event-item">
+                    <span className="event-dot"></span>
+                    <span>Projeto - 14h</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="create-event-preview">
+                <div className="agenda-header">
+                  <span className="month">Novo Evento</span>
+                </div>
+                <div className="event-list">
+                  <div className="event-item">
+                    <span>📅 Selecionar data</span>
+                  </div>
+                  <div className="event-item">
+                    <span>🕐 Definir horário</span>
+                  </div>
+                  <div className="event-item">
+                    <span>📝 Adicionar título</span>
+                  </div>
+                  <div className="event-item">
+                    <span>📎 Anexar arquivos</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="events-preview">
+              <div className="agenda-header">
+                <span className="month">Próximos Eventos</span>
+              </div>
+              <div className="event-list">
+                <div className="event-item">
+                  <span>Natação - 18h</span>
+                </div>
+                <div className="event-item">
+                  <span>Aniversário - 19h</span>
+                </div>
+                <div className="event-item">
+                  <span>Academia - 7h</span>
+                </div>
+                <div className="event-item">
+                  <span>Dentista - 14h</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
