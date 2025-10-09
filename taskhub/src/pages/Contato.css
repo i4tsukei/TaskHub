@@ -1,146 +1,125 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 .contato {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 70%, #ffffff 100%);
-  line-height: 1.6;
+  background: #f8f9fa;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .contato-container {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 48px 24px;
 }
 
 .contato-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 48px;
 }
 
 .contato-header h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #1565c0;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: 32px;
+  font-weight: 400;
+  color: #3c4043;
+  margin: 0 0 8px 0;
 }
 
 .contato-header p {
-  font-size: 1.2rem;
-  color: #1976d2;
+  font-size: 16px;
+  color: #5f6368;
   margin: 0;
-  font-weight: 400;
 }
 
 .contato-content {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 4rem;
+  gap: 48px;
   align-items: start;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
 }
 
 .info-item {
-  background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%);
-  padding: 2rem;
-  border-radius: 15px;
-  border: 1px solid #bbdefb;
-  transition: transform 0.3s ease;
-}
-
-.info-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(66, 165, 245, 0.15);
+  padding: 0;
 }
 
 .info-item h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1565c0;
-  margin-bottom: 0.5rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: #3c4043;
+  margin: 0 0 4px 0;
 }
 
 .info-item p {
-  font-size: 1rem;
-  color: #1976d2;
+  font-size: 14px;
+  color: #5f6368;
   margin: 0;
-  line-height: 1.6;
 }
 
 .contact-form {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  padding: 3rem;
-  box-shadow: 0 10px 40px rgba(66, 165, 245, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: 1px solid #dadce0;
 }
 
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: 24px;
 }
 
 .form-input, .form-textarea {
   width: 100%;
-  padding: 1rem 1.5rem;
-  border: 1px solid #bbdefb;
-  border-radius: 12px;
-  font-size: 1rem;
+  padding: 12px 16px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: rgba(255, 255, 255, 0.8);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
-  font-weight: 400;
 }
 
 .form-input:focus, .form-textarea:focus {
   outline: none;
-  border-color: #42a5f5;
-  box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
-  background: white;
-  transform: translateY(-1px);
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 1px #1a73e8;
 }
 
 .form-input::placeholder, .form-textarea::placeholder {
-  color: #90a4ae;
-  font-weight: 400;
+  color: #9aa0a6;
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 120px;
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #166fb8 0%, #4c8bca 100%);
+  background: #1a73e8;
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
-  width: 100%;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(66, 165, 245, 0.4);
+  background: #1557b0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .submit-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+  background: #1557b0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 @media (max-width: 768px) {
