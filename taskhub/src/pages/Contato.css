@@ -1,125 +1,146 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 .contato {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  background: #f8f9fa;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 70%, #ffffff 100%);
+  line-height: 1.6;
 }
 
 .contato-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 4rem 2rem;
 }
 
 .contato-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 4rem;
 }
 
 .contato-header h1 {
-  font-size: 32px;
-  font-weight: 400;
-  color: #3c4043;
-  margin: 0 0 8px 0;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1565c0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .contato-header p {
-  font-size: 16px;
-  color: #5f6368;
+  font-size: 1.2rem;
+  color: #1976d2;
   margin: 0;
+  font-weight: 400;
 }
 
 .contato-content {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 48px;
+  gap: 4rem;
   align-items: start;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
 }
 
 .info-item {
-  padding: 0;
+  background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid #bbdefb;
+  transition: transform 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(66, 165, 245, 0.15);
 }
 
 .info-item h3 {
-  font-size: 16px;
-  font-weight: 500;
-  color: #3c4043;
-  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1565c0;
+  margin-bottom: 0.5rem;
 }
 
 .info-item p {
-  font-size: 14px;
-  color: #5f6368;
+  font-size: 1rem;
+  color: #1976d2;
   margin: 0;
+  line-height: 1.6;
 }
 
 .contact-form {
-  background: white;
-  border-radius: 8px;
-  padding: 32px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  border: 1px solid #dadce0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(66, 165, 245, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 2rem;
 }
 
 .form-input, .form-textarea {
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #dadce0;
-  border-radius: 4px;
-  font-size: 14px;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  background: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 1rem 1.5rem;
+  border: 1px solid #bbdefb;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
+  font-weight: 400;
 }
 
 .form-input:focus, .form-textarea:focus {
   outline: none;
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 1px #1a73e8;
+  border-color: #42a5f5;
+  box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
+  background: white;
+  transform: translateY(-1px);
 }
 
 .form-input::placeholder, .form-textarea::placeholder {
-  color: #9aa0a6;
+  color: #90a4ae;
+  font-weight: 400;
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 150px;
 }
 
 .submit-btn {
-  background: #1a73e8;
+  background: linear-gradient(135deg, #166fb8 0%, #4c8bca 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   cursor: pointer;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+  width: 100%;
 }
 
 .submit-btn:hover {
-  background: #1557b0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(66, 165, 245, 0.4);
 }
 
 .submit-btn:active {
-  background: #1557b0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
 }
 
 @media (max-width: 768px) {

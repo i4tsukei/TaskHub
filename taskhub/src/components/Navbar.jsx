@@ -7,10 +7,10 @@ function Navbar({ currentPage, setCurrentPage, darkTheme }) {
       <ul className="nav-links">
         <li><a href="#home" onClick={() => setCurrentPage('home')}>Home</a></li>
         <li><a href="#contato" onClick={() => setCurrentPage('contato')}>Contato</a></li>
-        <li><a href="#sobre" onClick={() => setCurrentPage('sobre')}>Sobre</a></li>
-
       </ul>
-      <button className="sign-in" onClick={() => setCurrentPage('login')}>Entrar ➝</button>
+      <button className="sign-in" onClick={() => setCurrentPage('login')}>
+        <span>Entrar ➝</span>
+      </button>
     </nav>
   );
 }
