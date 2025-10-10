@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 .sobre {
   min-height: 100vh;
   background: #f8f9fa;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .sobre-container {
@@ -107,7 +107,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1a73e8;
+  background: #75b1ff;
   color: white;
   display: flex;
   align-items: center;

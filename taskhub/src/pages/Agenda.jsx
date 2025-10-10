@@ -332,7 +332,7 @@ function Agenda() {
   };
 
   return (
-    <div className="agenda-container" style={{backgroundColor: '#ffffff'}} onClick={closeContextMenu}>
+    <div className="agenda-container" style={{backgroundColor: '#ffffff', fontFamily: "'Inter', sans-serif"}} onClick={closeContextMenu}>
       <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
         ☰
       </button>

@@ -20,22 +20,9 @@ function Contato({ darkTheme }) {
     <div className={`contato ${darkTheme ? 'dark-theme' : ''}`}>
       <div className="contato-container">
         <div className="contato-header">
-          <h1>Entre em contato</h1>
+          <h1>Fale Conosco</h1>
           <p>Estamos aqui para ajudar você</p>
         </div>
-
-        <div className="contato-content">
-          <div className="contact-info">
-            <div className="info-item">
-              <h3>Email</h3>
-              <p>contato@taskhub.com</p>
-            </div>
-            <div className="info-item">
-              <h3>Suporte</h3>
-              <p>Resposta em até 24h</p>
-            </div>
-          </div>
-
           <form onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
               <input
@@ -89,7 +76,7 @@ function Contato({ darkTheme }) {
           </form>
         </div>
       </div>
-    </div>
+  
   );
 }
 
