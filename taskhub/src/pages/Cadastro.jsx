@@ -8,15 +8,38 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     password: '',
     confirmPassword: ''
   });
-
+}
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert('As senhas não coincidem!');
       return;
     }
+    
+     const handleSubmit = (e) => {
+     e.preventDefault();
+
+    UsuarioService.register(formData.nome, formData.email, formData.password).then(
+      () => {
+        const userJson = localStorage.getItem("user");
+        const user = JSON.parse(userJson || '{}');
+        if (user.statusUsuario == 'ativo') {
+          setCurrentPage('dashboard');
+        }
+       },
+      (error) => {
+        const respMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
     console.log('Cadastro:', formData);
     setCurrentPage('dashboard');
+      }
+
+    );
   };
 
   return (

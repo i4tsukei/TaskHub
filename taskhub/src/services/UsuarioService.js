@@ -1,5 +1,5 @@
 import http from '../common/http-common';
-const API_URL = "api/v1/usuario/";
+const API_URL = "/api/v1/usuario/";
 
 const findAll = () => {
     return http.mainInstance.get(API_URL + 'findAll');
