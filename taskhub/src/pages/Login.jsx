@@ -6,7 +6,7 @@ function Login({ setCurrentPage, darkTheme }) {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '' 
   });
 
 
@@ -17,7 +17,7 @@ function Login({ setCurrentPage, darkTheme }) {
       () => {
         const userJson = localStorage.getItem("user");
         const user = JSON.parse(userJson || '{}');
-        if (user.statusUsuario == 'ATIVO') {
+        if (user.statusUsuario == 'ativo') {
           setCurrentPage('dashboard');
         }
 
