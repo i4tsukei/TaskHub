@@ -8,25 +8,28 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     password: '',
     confirmPassword: ''
   });
-}
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert('As senhas não coincidem!');
-      return;
-    }
-    
-     const handleSubmit = (e) => {
-     e.preventDefault();
 
-    UsuarioService.register(formData.nome, formData.email, formData.password).then(
+ 
+    
+ const handleSubmit = (e) => {
+  e.preventDefault(); // impede o form de recarregar a página
+
+  if (formData.password !== formData.confirmPassword) {
+    alert('As senhas não coincidem!');
+    return; // para o código aqui se forem diferentes
+  }
+
+  UsuarioService.register(formData.nome, formData.email, formData.password)
+    .then(
       () => {
         const userJson = localStorage.getItem("user");
         const user = JSON.parse(userJson || '{}');
-        if (user.statusUsuario == 'ativo') {
+ 
+   
+        if (user.statusUsuario === 'ativo') {
           setCurrentPage('dashboard');
         }
-       },
+      },
       (error) => {
         const respMessage =
           (error.response &&
@@ -34,13 +37,14 @@ function Cadastro({ setCurrentPage, darkTheme }) {
             error.response.data.message) ||
           error.message ||
           error.toString();
+ 
+        console.error('Erro no cadastro:', respMessage);
 
-    console.log('Cadastro:', formData);
-    setCurrentPage('dashboard');
+        console.log('Cadastro:', formData);
+        setCurrentPage('dashboard');
       }
-
     );
-  };
+};
 
   return (
     <div className={`cadastro-container ${darkTheme ? 'dark-theme' : ''}`}>
