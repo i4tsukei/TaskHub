@@ -6,8 +6,9 @@ function Login({ setCurrentPage, darkTheme }) {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '' 
   });
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,9 +17,10 @@ function Login({ setCurrentPage, darkTheme }) {
       () => {
         const userJson = localStorage.getItem("user");
         const user = JSON.parse(userJson || '{}');
-        if (user.statusUsuario === 'ativo') {
+        if (user.statusUsuario == 'ativo') {
           setCurrentPage('dashboard');
         }
+
       },
       (error) => {
         const respMessage =
@@ -27,10 +29,9 @@ function Login({ setCurrentPage, darkTheme }) {
             error.response.data.message) ||
           error.message ||
           error.toString();
-        
-        console.error('Erro no login:', respMessage);
-        alert('Erro ao fazer login. Verifique suas credenciais.');
+
       }
+
     );
   };
 
@@ -68,9 +69,7 @@ function Login({ setCurrentPage, darkTheme }) {
             <button type="submit" className="login-btn">Entrar</button>
           </form>
 
-          <div className="login-footer">
-            <p><span className="link" onClick={() => setShowEmailForm(false)}>← Voltar</span></p>
-          </div>
+
         </div>
       </div>
     );
