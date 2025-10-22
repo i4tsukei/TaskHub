@@ -85,16 +85,6 @@ function Cadastro({ setCurrentPage, darkTheme }) {
             />
           </div>
           
-          <div className="form-group">
-            <label>Confirmar Senha</label>
-            <input
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-              required
-            />
-          </div>
-          
           <button type="submit" className="cadastro-btn">Cadastrar</button>
         </form>
         
