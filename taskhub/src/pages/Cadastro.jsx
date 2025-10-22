@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Cadastro.css';
+import UsuarioService from '../services/UsuarioService';
 
 function Cadastro({ setCurrentPage, darkTheme }) {
   const [formData, setFormData] = useState({
@@ -8,14 +9,12 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     password: '',
     confirmPassword: ''
   });
-
  
-    
  const handleSubmit = (e) => {
   e.preventDefault(); // impede o form de recarregar a página
 
   if (formData.password !== formData.confirmPassword) {
-    alert('As senhas não coincidem!');
+    alert('Senha não reconhecida');
     return; // para o código aqui se forem diferentes
   }
 
@@ -82,11 +81,19 @@ function Cadastro({ setCurrentPage, darkTheme }) {
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
-              
               required
             />
           </div>
           
+          <div className="form-group">
+            <label>Confirmar Senha</label>
+            <input
+              type="password"
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+              required
+            />
+          </div>
           
           <button type="submit" className="cadastro-btn">Cadastrar</button>
         </form>
