@@ -14,6 +14,7 @@ function Cadastro({ setCurrentPage, darkTheme }) {
   e.preventDefault(); // impede o form de recarregar a página
 
   if (formData.password !== formData.confirmPassword) {
+    alert('Senha não reconhecida');
     return; // para o código aqui se forem diferentes
   }
 
@@ -83,7 +84,7 @@ function Cadastro({ setCurrentPage, darkTheme }) {
               required
             />
           </div>
-          
+
           <button type="submit" className="cadastro-btn">Cadastrar</button>
         </form>
         
