@@ -1,25 +1,25 @@
 import http from '../common/http-common';
-const API_URL = "/api/v1/usuario/";
+const API_URL = "/api/v1/usuarios";
 
 const findAll = () => {
-    return http.mainInstance.get(API_URL + 'findAll');
+    return http.mainInstance.get(API_URL);
 };
 
 const findById = (id) => {
-    return http.mainInstance.get(API_URL + `findById/${id}`);
+    return http.mainInstance.get(API_URL + `/${id}`);
 };
 
 const register = (nome, email, password) => {
-    return http.mainInstance.post(API_URL + "register", {
+    return http.mainInstance.post(API_URL, {
         nome,
         email,
-        password,
+        senha: password,
     });
 };
 
 const login = async (email, senha) => {
     const response = await http.mainInstance
-        .post(API_URL + "login", {
+        .post(API_URL + "/login", {
             email,
             senha,
         });
@@ -39,7 +39,7 @@ const getCurrentUser = () => {
 
 
 const update = (id, data) => {
-    return http.multipartInstance.put(API_URL + `update/${id}`, data);
+    return http.multipartInstance.put(API_URL + `/${id}`, data);
 };
 
 const inativar = (id) => {
@@ -54,11 +54,11 @@ const alterarSenha = (id, data) => {
     const formData = new FormData();
     formData.append('senha', data.senha);
  
-    return http.mainInstance.put(API_URL + `alterarSenha/${id}`, formData);
+    return http.mainInstance.put(API_URL + `/alterarSenha/${id}`, formData);
 };
 
 const findByNome = nome => {
-    return http.mainInstance.get(API_URL + `findByNome?nome=${nome}`);
+    return http.mainInstance.get(API_URL + `/findByNome?nome=${nome}`);
 };
 
 

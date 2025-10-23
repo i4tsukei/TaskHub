@@ -13,23 +13,28 @@ function Login({ setCurrentPage, darkTheme }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log('Tentando login:', { email: formData.email, password: formData.password });
+    
     UsuarioService.login(formData.email, formData.password).then(
-      () => {
-        const userJson = localStorage.getItem("user");
-        const user = JSON.parse(userJson || '{}');
-        if (user.statusUsuario == 'ativo') {
-          setCurrentPage('dashboard');
-        }
-
+      (response) => {
+        console.log('Login realizado com sucesso:', response);
+        console.log('Redirecionando para home...');
+        setTimeout(() => {
+          setCurrentPage('home');
+          window.location.hash = '#home';
+          console.log('setCurrentPage executado');
+        }, 100);
       },
       (error) => {
+        console.error('Erro no login:', error);
         const respMessage =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();
-
+        
+        alert('Erro no login: ' + respMessage);
       }
 
     );

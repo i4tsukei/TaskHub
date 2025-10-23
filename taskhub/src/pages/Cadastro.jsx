@@ -18,18 +18,21 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     return; // para o código aqui se forem diferentes
   }
 
+  console.log('Tentando cadastrar:', { nome: formData.nome, email: formData.email });
+  
   UsuarioService.register(formData.nome, formData.email, formData.password)
     .then(
-      () => {
-        const userJson = localStorage.getItem("user");
-        const user = JSON.parse(userJson || '{}');
- 
-   
-        if (user.statusUsuario === 'ativo') {
-          setCurrentPage('dashboard');
-        }
+      (response) => {
+        console.log('Cadastro realizado com sucesso:', response.data);
+        console.log('Redirecionando para home...');
+        setTimeout(() => {
+          setCurrentPage('home');
+          window.location.hash = '#home';
+          console.log('setCurrentPage executado');
+        }, 100);
       },
       (error) => {
+        console.error('Erro no cadastro:', error);
         const respMessage =
           (error.response &&
             error.response.data &&
@@ -37,10 +40,7 @@ function Cadastro({ setCurrentPage, darkTheme }) {
           error.message ||
           error.toString();
  
-        console.error('Erro no cadastro:', respMessage);
-
-        console.log('Cadastro:', formData);
-        setCurrentPage('dashboard');
+        alert('Erro no cadastro: ' + respMessage);
       }
     );
 };
@@ -81,6 +81,16 @@ function Cadastro({ setCurrentPage, darkTheme }) {
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Confirmar Senha</label>
+            <input
+              type="password"
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
               required
             />
           </div>

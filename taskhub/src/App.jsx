@@ -15,6 +15,8 @@ import Footer from "./pages/Footer.jsx";
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [darkTheme, setDarkTheme] = useState(false);
+  
+  console.log('Página atual:', currentPage);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
