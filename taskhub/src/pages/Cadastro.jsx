@@ -24,12 +24,7 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     .then(
       (response) => {
         console.log('Cadastro realizado com sucesso:', response.data);
-        console.log('Redirecionando para home...');
-        setTimeout(() => {
-          setCurrentPage('home');
-          window.location.hash = '#home';
-          console.log('setCurrentPage executado');
-        }, 100);
+        setCurrentPage('dashboard');
       },
       (error) => {
         console.error('Erro no cadastro:', error);

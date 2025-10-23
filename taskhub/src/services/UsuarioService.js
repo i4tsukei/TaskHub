@@ -39,7 +39,7 @@ const getCurrentUser = () => {
 
 
 const update = (id, data) => {
-    return http.multipartInstance.put(API_URL + `/${id}`, data);
+    return http.mainInstance.put(API_URL + `/${id}`, data);
 };
 
 const inativar = (id) => {
@@ -51,10 +51,7 @@ const reativar = (id) => {
 };
 
 const alterarSenha = (id, data) => {
-    const formData = new FormData();
-    formData.append('senha', data.senha);
- 
-    return http.mainInstance.put(API_URL + `/alterarSenha/${id}`, formData);
+    return http.mainInstance.put(API_URL + `/alterarSenha/${id}?senha=${encodeURIComponent(data.senha)}`);
 };
 
 const findByNome = nome => {

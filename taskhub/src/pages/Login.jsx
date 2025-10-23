@@ -18,12 +18,7 @@ function Login({ setCurrentPage, darkTheme }) {
     UsuarioService.login(formData.email, formData.password).then(
       (response) => {
         console.log('Login realizado com sucesso:', response);
-        console.log('Redirecionando para home...');
-        setTimeout(() => {
-          setCurrentPage('home');
-          window.location.hash = '#home';
-          console.log('setCurrentPage executado');
-        }, 100);
+        setCurrentPage('dashboard');
       },
       (error) => {
         console.error('Erro no login:', error);

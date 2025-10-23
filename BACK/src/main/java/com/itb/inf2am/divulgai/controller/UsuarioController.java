@@ -87,6 +87,29 @@ public class UsuarioController {
   }
  }
 
+ @PutMapping("/alterarSenha/{id}")
+ public ResponseEntity<Object> alterarSenha(@PathVariable String id, @RequestParam String senha) {
+  try {
+   Long usuarioId = Long.parseLong(id);
+   Usuario usuarioExistente = usuarioService.findById(usuarioId);
+   usuarioExistente.setSenha(senha);
+   Usuario usuarioAtualizado = usuarioService.save(usuarioExistente);
+   return ResponseEntity.ok(Map.of("message", "Senha alterada com sucesso"));
+  } catch (NumberFormatException e) {
+   return ResponseEntity.badRequest().body(Map.of(
+    "status", 400,
+    "error", "Bad Request",
+    "message", "O id informado não é válido: " + id
+   ));
+  } catch (RuntimeException e) {
+   return ResponseEntity.status(404).body(Map.of(
+    "status", 404,
+    "error", "Not Found",
+    "message", "Usuario não encontrado com o id " + id
+   ));
+  }
+ }
+
  @DeleteMapping("/{id}")
  public ResponseEntity<Object> excluirUsuario(@PathVariable String id) {
   try {
