@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 3rem;
-  background: rgb(0, 2, 139);
+  background: rgb(0, 1, 68);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(20, 2, 2, 0.2);
@@ -24,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg),rgb(0, 2, 139);
+  background: linear-gradient(135deg),rgb(0, 1, 68);
   pointer-events: none;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .sign-in {
-  background: linear-gradient(135deg, #2865c0 0%, #054788 100%);
+  background: linear-gradient(135deg, #190474 0%, #074f96 100%);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
@@ -110,7 +110,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  background: linear-gradient(135deg, #03020c 0%, #1565c0 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -127,45 +127,6 @@
 .sign-in span {
   position: relative;
   z-index: 1;
-}
-
-/* Dark Theme */
-.dark-theme .navbar {
-  background: rgba(15, 23, 42, 0.8);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-.dark-theme .navbar::before {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.3) 0%, rgba(51, 65, 85, 0.3) 100%);
-}
-
-.dark-theme .logo {
-  color: #e2e8f0;
-}
-
-.dark-theme .nav-links a {
-  color: #cbd5e1;
-}
-
-.dark-theme .nav-links a::before {
-  background: rgba(203, 213, 225, 0.1);
-}
-
-.dark-theme .nav-links a:hover {
-  color: #f1f5f9;
-}
-
-.dark-theme .sign-in {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-}
-
-.dark-theme .sign-in::before {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-}
-
-.dark-theme .sign-in:hover {
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 /* Responsive Design */

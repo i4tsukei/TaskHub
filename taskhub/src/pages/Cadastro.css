@@ -3,8 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8  100%);
-  padding: 2rem;
+  background: linear-gradient(135deg, hsl(239, 92%, 10%) 0%, #2421c2  100%);
+  color: white;
+  padding: 1rem;
 }
 
 .cadastro-card {
@@ -12,7 +13,7 @@
   border-radius: 12px;
   padding: 3rem;
   width: 100%;
-  max-width: 450px;
+  max-width: 650px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -63,7 +64,8 @@
 
 .cadastro-btn {
   width: 100%;
-  background: linear-gradient(135deg, hsl(212, 36%, 50%) 0%, #4784df 100%);
+  background: linear-gradient(135deg, hsl(239, 92%, 10%) 0%, #2421c2  100%);
+  color: white;
   color: white;
   border: none;
   padding: 0.875rem;
@@ -85,7 +87,7 @@
 }
 
 .cadastro-footer .link {
-  color: #667eea;
+  color: #061d8b;
   cursor: pointer;
   text-decoration: underline;
 }

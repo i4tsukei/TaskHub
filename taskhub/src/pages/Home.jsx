@@ -73,46 +73,6 @@ function Home({ setCurrentPage, darkTheme }) {
                   </div>
                 </div>
               </div>
-              
-              <div className="create-event-preview">
-                <div className="agenda-header">
-                  <span className="month">Novo Evento</span>
-                </div>
-                <div className="event-list">
-                  <div className="event-item">
-                    <span>📅 Selecionar data</span>
-                  </div>
-                  <div className="event-item">
-                    <span>🕐 Definir horário</span>
-                  </div>
-                  <div className="event-item">
-                    <span>📝 Adicionar título</span>
-                  </div>
-                  <div className="event-item">
-                    <span>📎 Anexar arquivos</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="events-preview">
-              <div className="agenda-header">
-                <span className="month">Próximos Eventos</span>
-              </div>
-              <div className="event-list">
-                <div className="event-item">
-                  <span>Natação - 18h</span>
-                </div>
-                <div className="event-item">
-                  <span>Aniversário - 19h</span>
-                </div>
-                <div className="event-item">
-                  <span>Academia - 7h</span>
-                </div>
-                <div className="event-item">
-                  <span>Dentista - 14h</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
