@@ -21,7 +21,7 @@
 .contato-header h1 {
   font-size: 3rem;
   font-weight: 800;
-  color: #4f97e9;
+  color:rgb(0, 2, 139);
   margin-bottom: 1rem;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -102,7 +102,7 @@
 
 .form-input:focus, .form-textarea:focus {
   outline: none;
-  border-color: #42a5f5;
+  border-color: #2e72aa;
   box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
   background: white;
   transform: translateY(-1px);
@@ -119,7 +119,7 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #166fb8 0%, #4c8bca 100%);
+  background: rgb(0, 2, 139);
   color: white;
   border: none;
   padding: 1rem 2rem;

@@ -31,7 +31,7 @@
 }
 
 .brand {
-  color: #4f97e9;
+  color: rgb(0, 2, 139);
 }
 
 .hero-subtitle {
@@ -43,7 +43,7 @@
 }
 
 .cta-button {
-  background: #4f97e9;
+  background:rgb(0, 2, 139);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -84,7 +84,7 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgb(14, 14, 26);
   border: 1px solid #dadce0;
   width: 280px;
   transform: rotate(-2deg);
@@ -94,7 +94,7 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(14,14,26);
   border: 1px solid #dadce0;
   width: 230px;
   transform: rotate(2deg);

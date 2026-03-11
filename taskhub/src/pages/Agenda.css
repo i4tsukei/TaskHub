@@ -27,7 +27,7 @@
 
 .menu-toggle.open {
   background: white;
-  color: rgb(126, 186, 255);
+  color: rgb(128, 126, 255);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -189,7 +189,7 @@
 
 .settings-nav-item:hover {
   background: rgba(126, 186, 255, 0.1);
-  color: rgb(126, 186, 255);
+  color: rgb(154, 126, 255);
   transform: translateX(4px);
 }
 
