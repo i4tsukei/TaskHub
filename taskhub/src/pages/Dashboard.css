@@ -98,7 +98,7 @@
 
 .dashboard-header h1 {
   font-size: 2.5rem;
-  color: #3b3c3d;
+  color: #010381;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
@@ -192,7 +192,7 @@
 }
 
 .quick-action-btn {
-  background: linear-gradient(135deg, #4245f5 0%, #1976d2 100%);
+  background: linear-gradient(135deg, #010350 0%, #0231b3 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;

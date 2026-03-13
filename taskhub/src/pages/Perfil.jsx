@@ -187,7 +187,7 @@ function Perfil({ darkTheme }) {
             <div className="sidebar-label">Dados Pessoais</div>
           </div>
           <div className={`sidebar-item ${activeSection === 'seguranca' ? 'active' : ''}`} onClick={() => setActiveSection('seguranca')}>
-            <div className="sidebar-label">Segurança</div>
+            <div className="sidebar-label">Trocar Senha</div>
           </div>
         </div>
       </div>
