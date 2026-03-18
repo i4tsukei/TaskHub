@@ -349,28 +349,28 @@ function Agenda() {
       
       <div className={`calendar ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="calendar-navigation">
-          <div className="month-year">
-            <select 
-              value={currentMonth} 
-              onChange={(e) => setCurrentMonth(parseInt(e.target.value))}
-              className="month-selector"
-            >
-              {monthNames.map((month, index) => (
-                <option key={index} value={index}>{month}</option>
-              ))}
-            </select>
-            <select 
-              value={currentYear} 
-              onChange={(e) => setCurrentYear(parseInt(e.target.value))}
-              className="year-selector"
-            >
-              {Array.from({length: currentYear - 2019 + 11}, (_, i) => 2019 + i).map(year => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
-          </div>
-          <div className="nav-buttons">
+          <div className="nav-left" style={{ marginLeft: '70px' }}>
             <button onClick={prevMonth} className="nav-btn">‹</button>
+            <div className="month-year">
+              <select 
+                value={currentMonth} 
+                onChange={(e) => setCurrentMonth(parseInt(e.target.value))}
+                className="month-selector"
+              >
+                {monthNames.map((month, index) => (
+                  <option key={index} value={index}>{month}</option>
+                ))}
+              </select>
+              <select 
+                value={currentYear} 
+                onChange={(e) => setCurrentYear(parseInt(e.target.value))}
+                className="year-selector"
+              >
+                {Array.from({length: currentYear - 2019 + 11}, (_, i) => 2019 + i).map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+            </div>
             <button onClick={nextMonth} className="nav-btn">›</button>
           </div>
         </div>
