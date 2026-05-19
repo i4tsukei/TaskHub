@@ -1,0 +1,78 @@
+import { useState } from 'react';
+import './Login.css';
+import UsuarioService from '../services/UsuarioService';
+
+function Login({ setCurrentPage, darkTheme }) {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '' 
+  });
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Tentando login:', { email: formData.email, password: formData.password });
+    
+    UsuarioService.login(formData.email, formData.password).then(
+      (response) => {
+        console.log('Login realizado com sucesso:', response);
+        setCurrentPage('dashboard');
+      },
+      (error) => {
+        console.error('Erro no login:', error);
+        const respMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        
+        alert('Erro no login: ' + respMessage);
+      }
+
+    );
+  };
+
+
+  return (
+    <div className={`login-container ${darkTheme ? 'dark-theme' : ''}`}>
+      <div className="login-card">
+        <div className="login-header">
+          <h1>Entrar com Email</h1>
+          <p>Digite suas credenciais para acessar</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Senha</label>
+            <input
+              type="password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-btn">Entrar</button>
+        </form>
+
+        <div className="login-footer">
+          <p>Não tem uma conta? <span className="link" onClick={() => setCurrentPage('cadastro')}>Cadastre-se</span></p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Login;
