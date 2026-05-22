@@ -59,6 +59,10 @@ const findByNome = nome => {
 };
 
 
+const resetSenha = (email, novaSenha) => {
+    return http.mainInstance.post(API_URL + "/resetSenha", { email, novaSenha });
+};
+
 const UsuarioService = {
     findAll,
     findById,
@@ -71,6 +75,7 @@ const UsuarioService = {
     reativar,
     alterarSenha,
     findByNome,
+    resetSenha,
 }
 
 export default UsuarioService;

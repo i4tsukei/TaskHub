@@ -62,6 +62,9 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
       
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
+            <div className="sidebar-label">Dashboard</div>
+          </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=agenda'}>
             <div className="sidebar-label">Agenda</div>
           </div>

@@ -385,10 +385,16 @@ function Agenda() {
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-item" onClick={handleNewEvent}>
-            <div className="sidebar-label">Novo Evento</div>
+            <div className="sidebar-label">+ Novo Evento</div>
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
-            <div className="sidebar-label">Página Inicial</div>
+            <div className="sidebar-label">Dashboard</div>
+          </div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=perfil'}>
+            <div className="sidebar-label">Perfil</div>
+          </div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
+            <div className="sidebar-label">Sair</div>
           </div>
         </div>
       </div>

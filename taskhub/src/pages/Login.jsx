@@ -3,35 +3,64 @@ import './Login.css';
 import UsuarioService from '../services/UsuarioService';
 
 function Login({ setCurrentPage, darkTheme }) {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '' 
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [forgotStep, setForgotStep] = useState(null); // null | 'email' | 'senha'
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [newPassData, setNewPassData] = useState({ novaSenha: '', confirmarSenha: '' });
+  const [forgotMsg, setForgotMsg] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log('Tentando login:', { email: formData.email, password: formData.password });
-    
     UsuarioService.login(formData.email, formData.password).then(
-      (response) => {
-        console.log('Login realizado com sucesso:', response);
-        setCurrentPage('dashboard');
-      },
+      () => setCurrentPage('dashboard'),
       (error) => {
-        console.error('Erro no login:', error);
-        const respMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        
+        const respMessage = (error.response?.data?.message) || error.message || error.toString();
         alert('Erro no login: ' + respMessage);
       }
-
     );
+  };
+
+  const handleForgotEmail = (e) => {
+    e.preventDefault();
+    setForgotMsg('');
+    UsuarioService.findAll().then((res) => {
+      const existe = res.data.some(u => u.email === forgotEmail);
+      if (!existe) {
+        setForgotMsg('Email não encontrado.');
+      } else {
+        setForgotStep('senha');
+      }
+    }).catch(() => setForgotMsg('Erro ao verificar email.'));
+  };
+
+  const handleResetSenha = (e) => {
+    e.preventDefault();
+    setForgotMsg('');
+    if (newPassData.novaSenha !== newPassData.confirmarSenha) {
+      setForgotMsg('As senhas não coincidem.');
+      return;
+    }
+    if (newPassData.novaSenha.length < 6) {
+      setForgotMsg('A senha deve ter pelo menos 6 caracteres.');
+      return;
+    }
+    UsuarioService.resetSenha(forgotEmail, newPassData.novaSenha)
+      .then(() => {
+        setForgotStep(null);
+        setForgotEmail('');
+        setNewPassData({ novaSenha: '', confirmarSenha: '' });
+        alert('Senha redefinida com sucesso! Faça login.');
+      })
+      .catch((error) => {
+        setForgotMsg(error.response?.data?.message || 'Erro ao redefinir senha.');
+      });
+  };
+
+  const closeForgot = () => {
+    setForgotStep(null);
+    setForgotEmail('');
+    setNewPassData({ novaSenha: '', confirmarSenha: '' });
+    setForgotMsg('');
   };
 
 
@@ -87,9 +116,69 @@ function Login({ setCurrentPage, darkTheme }) {
         </form>
 
         <div className="login-footer">
+          <p>
+            <span className="link" onClick={() => setForgotStep('email')}>Esqueci a senha</span>
+          </p>
           <p>Não tem uma conta? <span className="link" onClick={() => setCurrentPage('cadastro')}>Cadastre-se</span></p>
         </div>
       </div>
+
+      {forgotStep && (
+        <div className="forgot-overlay" onClick={closeForgot}>
+          <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="forgot-close" onClick={closeForgot}>✕</button>
+
+            {forgotStep === 'email' && (
+              <>
+                <h2>Redefinir Senha</h2>
+                <p>Digite o email cadastrado na sua conta.</p>
+                <form onSubmit={handleForgotEmail}>
+                  <div className="form-group">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  {forgotMsg && <p className="forgot-error">{forgotMsg}</p>}
+                  <button type="submit" className="login-btn">Continuar</button>
+                </form>
+              </>
+            )}
+
+            {forgotStep === 'senha' && (
+              <>
+                <h2>Nova Senha</h2>
+                <p>Defina uma nova senha para <strong>{forgotEmail}</strong></p>
+                <form onSubmit={handleResetSenha}>
+                  <div className="form-group">
+                    <label>Nova Senha</label>
+                    <input
+                      type="password"
+                      value={newPassData.novaSenha}
+                      onChange={(e) => setNewPassData({ ...newPassData, novaSenha: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Confirmar Senha</label>
+                    <input
+                      type="password"
+                      value={newPassData.confirmarSenha}
+                      onChange={(e) => setNewPassData({ ...newPassData, confirmarSenha: e.target.value })}
+                      required
+                    />
+                  </div>
+                  {forgotMsg && <p className="forgot-error">{forgotMsg}</p>}
+                  <button type="submit" className="login-btn">Redefinir Senha</button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

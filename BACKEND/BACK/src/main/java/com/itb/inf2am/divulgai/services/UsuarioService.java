@@ -57,6 +57,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioExistente);
     }
 
+    public Usuario findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
     public Usuario reativar(Long id) {
         Usuario usuarioExistente = findById(id);
         usuarioExistente.setStatusUsuario("ativo");

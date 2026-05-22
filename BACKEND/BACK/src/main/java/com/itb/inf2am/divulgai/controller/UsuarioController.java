@@ -88,6 +88,22 @@ public class UsuarioController {
   }
  }
 
+ @PostMapping("/resetSenha")
+ public ResponseEntity<Object> resetSenha(@RequestBody Map<String, String> dados) {
+  String email = dados.get("email");
+  String novaSenha = dados.get("novaSenha");
+  if (email == null || novaSenha == null) {
+   return ResponseEntity.badRequest().body(Map.of("message", "Email e nova senha são obrigatórios"));
+  }
+  Usuario usuario = usuarioService.findByEmail(email);
+  if (usuario == null) {
+   return ResponseEntity.status(404).body(Map.of("message", "Email não encontrado"));
+  }
+  usuario.setSenha(novaSenha);
+  usuarioService.save(usuario);
+  return ResponseEntity.ok(Map.of("message", "Senha redefinida com sucesso"));
+ }
+
  @PutMapping("/alterarSenha/{id}")
  public ResponseEntity<Object> alterarSenha(@PathVariable String id, @RequestParam String senha) {
   try {

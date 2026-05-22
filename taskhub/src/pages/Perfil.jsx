@@ -8,7 +8,6 @@ function Perfil({ darkTheme }) {
   const [showSidebar, setShowSidebar] = useState(true);
   const [activeSection, setActiveSection] = useState('dados');
   const [userData, setUserData] = useState({ nome: '', email: '', telefone: '' });
-  const [passwordData, setPasswordData] = useState({ senhaAtual: '', novaSenha: '', confirmarSenha: '' });
 
   useEffect(() => {
     const user = UsuarioService.getCurrentUser();
@@ -72,102 +71,72 @@ function Perfil({ darkTheme }) {
     }
   };
 
-  const handleChangePassword = () => {
-    if (passwordData.novaSenha !== passwordData.confirmarSenha) {
-      alert('Nova senha e confirmação não coincidem');
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotData, setForgotData] = useState({ novaSenha: '', confirmarSenha: '' });
+  const [forgotError, setForgotError] = useState('');
+  const [forgotSuccess, setForgotSuccess] = useState('');
+
+  const handleForgotReset = (e) => {
+    e.preventDefault();
+    setForgotError('');
+    setForgotSuccess('');
+    if (forgotData.novaSenha.length < 6) {
+      setForgotError('A senha deve ter pelo menos 6 caracteres.');
       return;
     }
-    
-    if (passwordData.novaSenha.length < 6) {
-      alert('A nova senha deve ter pelo menos 6 caracteres');
+    if (forgotData.novaSenha !== forgotData.confirmarSenha) {
+      setForgotError('As senhas não coincidem.');
       return;
     }
-    
     const user = UsuarioService.getCurrentUser();
-    if (user) {
-      UsuarioService.alterarSenha(user.id, { senha: passwordData.novaSenha })
-        .then(() => {
-          alert('Senha alterada com sucesso!');
-          setPasswordData({ senhaAtual: '', novaSenha: '', confirmarSenha: '' });
-          // Atualiza o usuário no localStorage
-          const updatedUser = { ...user, senha: passwordData.novaSenha };
-          localStorage.setItem('user', JSON.stringify(updatedUser));
-        })
-        .catch(error => {
-          console.error('Erro ao alterar senha:', error);
-          alert('Erro ao alterar senha: ' + (error.response?.data?.message || error.message));
-        });
-    }
+    if (!user) return;
+    UsuarioService.resetSenha(user.email, forgotData.novaSenha)
+      .then(() => {
+        setForgotSuccess('Senha redefinida com sucesso!');
+        setForgotData({ novaSenha: '', confirmarSenha: '' });
+        localStorage.setItem('user', JSON.stringify({ ...user, senha: forgotData.novaSenha }));
+      })
+      .catch(error => setForgotError(error.response?.data?.message || 'Erro ao redefinir senha.'));
+  };
+
+  const closeForgot = () => {
+    setShowForgot(false);
+    setForgotData({ novaSenha: '', confirmarSenha: '' });
+    setForgotError('');
+    setForgotSuccess('');
   };
 
   const renderContent = () => {
-    console.log('Renderizando seção:', activeSection);
-    switch(activeSection) {
-      case 'dados':
-        return (
-          <div className="perfil-fields">
-            <div className="field-group">
-              <label>Nome</label>
-              <input 
-                type="text" 
-                value={userData.nome}
-                onChange={(e) => setUserData({...userData, nome: e.target.value})}
-              />
-            </div>
-            <div className="field-group">
-              <label>Email</label>
-              <input 
-                type="email" 
-                value={userData.email}
-                onChange={(e) => setUserData({...userData, email: e.target.value})}
-              />
-            </div>
-            <div className="field-group">
-              <label>Telefone</label>
-              <input 
-                type="tel" 
-                placeholder="(00) 00000-0000"
-                value={userData.telefone}
-                onChange={(e) => setUserData({...userData, telefone: e.target.value})}
-              />
-            </div>
-          </div>
-        );
-
-      case 'seguranca':
-        return (
-          <div className="security-section">
-            <div className="field-group">
-              <label>Senha Atual</label>
-              <input 
-                type="password"
-                value={passwordData.senhaAtual}
-                onChange={(e) => setPasswordData({...passwordData, senhaAtual: e.target.value})}
-              />
-            </div>
-            <div className="field-group">
-              <label>Nova Senha</label>
-              <input 
-                type="password"
-                value={passwordData.novaSenha}
-                onChange={(e) => setPasswordData({...passwordData, novaSenha: e.target.value})}
-              />
-            </div>
-            <div className="field-group">
-              <label>Confirmar Nova Senha</label>
-              <input 
-                type="password"
-                value={passwordData.confirmarSenha}
-                onChange={(e) => setPasswordData({...passwordData, confirmarSenha: e.target.value})}
-              />
-            </div>
-            <button className="change-password-btn" onClick={handleChangePassword}>Alterar Senha</button>
-          </div>
-        );
-
-      default:
-        return null;
-    }
+    return (
+      <div className="perfil-fields">
+        <div className="field-group">
+          <label>Nome</label>
+          <input
+            type="text"
+            value={userData.nome}
+            onChange={(e) => setUserData({...userData, nome: e.target.value})}
+          />
+        </div>
+        <div className="field-group">
+          <label>Email</label>
+          <input
+            type="email"
+            value={userData.email}
+            onChange={(e) => setUserData({...userData, email: e.target.value})}
+          />
+          <span className="perfil-forgot-link" onClick={() => setShowForgot(true)}>Esqueci a senha</span>
+        </div>
+        <div className="field-group">
+          <label>Telefone</label>
+          <input
+            type="tel"
+            placeholder="(00) 00000-0000"
+            value={userData.telefone}
+            onChange={(e) => setUserData({...userData, telefone: e.target.value})}
+          />
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -178,7 +147,7 @@ function Perfil({ darkTheme }) {
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
-            <div className="sidebar-label">Eventos</div>
+            <div className="sidebar-label">Dashboard</div>
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=agenda'}>
             <div className="sidebar-label">Agenda</div>
@@ -186,8 +155,8 @@ function Perfil({ darkTheme }) {
           <div className={`sidebar-item ${activeSection === 'dados' ? 'active' : ''}`} onClick={() => setActiveSection('dados')}>
             <div className="sidebar-label">Dados Pessoais</div>
           </div>
-          <div className={`sidebar-item ${activeSection === 'seguranca' ? 'active' : ''}`} onClick={() => setActiveSection('seguranca')}>
-            <div className="sidebar-label">Trocar Senha</div>
+          <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
+            <div className="sidebar-label">Sair</div>
           </div>
         </div>
       </div>
@@ -224,13 +193,43 @@ function Perfil({ darkTheme }) {
           
           {renderContent()}
           
-          {activeSection !== 'seguranca' && (
-            <div className="perfil-actions">
-              <button className="save-btn" onClick={handleSavePersonalData}>Salvar</button>
-            </div>
-          )}
+          <div className="perfil-actions">
+            <button className="save-btn" onClick={handleSavePersonalData}>Salvar</button>
+          </div>
         </div>
       </div>
+      {showForgot && (
+        <div className="forgot-overlay" onClick={closeForgot}>
+          <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="forgot-close" onClick={closeForgot}>✕</button>
+            <h2>Redefinir Senha</h2>
+            <p>Defina uma nova senha para a sua conta.</p>
+            <form onSubmit={handleForgotReset}>
+              <div className="field-group">
+                <label>Nova Senha</label>
+                <input
+                  type="password"
+                  value={forgotData.novaSenha}
+                  onChange={(e) => setForgotData({ ...forgotData, novaSenha: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="field-group">
+                <label>Confirmar Senha</label>
+                <input
+                  type="password"
+                  value={forgotData.confirmarSenha}
+                  onChange={(e) => setForgotData({ ...forgotData, confirmarSenha: e.target.value })}
+                  required
+                />
+              </div>
+              {forgotError && <p className="password-error">{forgotError}</p>}
+              {forgotSuccess && <p className="password-success">{forgotSuccess}</p>}
+              <button type="submit" className="change-password-btn">Redefinir Senha</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
