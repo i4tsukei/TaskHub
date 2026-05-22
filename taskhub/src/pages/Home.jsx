@@ -1,4 +1,5 @@
 import './Home.css';
+import { useState, useEffect } from 'react';
 
 const ChecklistIllustration = () => (
   <div className="chk-wrapper">
@@ -185,8 +186,41 @@ const features = [
 ];
 
 function Home({ setCurrentPage }) {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="home">
+    <>
+      {showSplash && (
+        <div className="splash-screen">
+          <div className="splash-content">
+            <svg width="100" height="100" viewBox="0 0 36 36" fill="none">
+              <rect x="2" y="6" width="24" height="22" rx="4" fill="#0d1b5e" stroke="#1a237e" strokeWidth="1.2"/>
+              <rect x="2" y="6" width="24" height="9" rx="4" fill="#0d1b5e"/>
+              <rect x="2" y="11" width="24" height="4" fill="#0d1b5e"/>
+              <rect x="4" y="14" width="20" height="13" rx="2" fill="white"/>
+              <rect x="9" y="3" width="4" height="7" rx="2" fill="white" stroke="#1a237e" strokeWidth="1"/>
+              <rect x="15" y="3" width="4" height="7" rx="2" fill="white" stroke="#1a237e" strokeWidth="1"/>
+              <rect x="6" y="16" width="4" height="3.5" rx="0.8" fill="#3949ab"/>
+              <rect x="11" y="16" width="4" height="3.5" rx="0.8" fill="#0d1b5e" opacity="0.6"/>
+              <rect x="6" y="20.5" width="4" height="3.5" rx="0.8" fill="#0d1b5e" opacity="0.6"/>
+              <rect x="11" y="20.5" width="4" height="3.5" rx="0.8" fill="#3949ab"/>
+              <circle cx="26" cy="26" r="8" fill="white" stroke="#0d1b5e" strokeWidth="2.2"/>
+              <circle cx="26" cy="26" r="5.5" fill="white"/>
+              <polyline points="22.5,26 25,28.5 29.5,22.5" stroke="#0d1b5e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="32" y1="32" x2="34" y2="34" stroke="#0d1b5e" strokeWidth="3" strokeLinecap="round"/>
+            </svg>
+            <h2>TaskHub</h2>
+          </div>
+        </div>
+      )}
+      <div className={showSplash ? 'home hidden' : 'home'}>
       {/* Hero */}
       <section className="hero">
         <div className="hero-particles">
@@ -210,17 +244,21 @@ function Home({ setCurrentPage }) {
       {/* Key Features */}
       <section className="features">
         <h2>Recursos</h2>
-        <div className="features-grid">
-          {features.map((f) => (
-            <div key={f.title} className="feature-card">
-              <div className="feature-icon">{f.icon}</div>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
+        <div className="features-container">
+          {features.map((f, index) => (
+            <div key={f.title} className="feature-item" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div className="feature-number">{index + 1}</div>
+              <div className="feature-content">
+                <div className="feature-icon-wrapper">{f.icon}</div>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
     </div>
+    </>
   );
 }
 
