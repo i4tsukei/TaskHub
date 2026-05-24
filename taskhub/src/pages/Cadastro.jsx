@@ -24,6 +24,7 @@ function Cadastro({ setCurrentPage, darkTheme }) {
     .then(() => UsuarioService.login(formData.email, formData.password))
     .then(() => {
       console.log('Cadastro e login realizados com sucesso');
+      sessionStorage.setItem('isFirstAccess', 'true');
       setCurrentPage('dashboard');
     })
     .catch((error) => {

@@ -13,10 +13,37 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
   const [events, setEvents] = useState([]);
   const [notificacoes, setNotificacoes] = useState([]);
   const [configuracao, setConfiguracao] = useState(null);
+  const [isFirstAccess, setIsFirstAccess] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState({ title: '', subtitle: '' });
+
+  const welcomeMessages = [
+    { title: 'Bem-vindo de volta!', subtitle: 'Vamos organizar seu dia?' },
+    { title: 'Olá novamente!', subtitle: 'Pronto para ser produtivo?' },
+    { title: 'Que bom te ver!', subtitle: 'Vamos conquistar seus objetivos?' },
+    { title: 'Bem-vindo!', subtitle: 'Sua agenda está esperando por você' },
+    { title: 'Ótimo ter você aqui!', subtitle: 'Vamos planejar o dia?' },
+    { title: 'Bem-vindo de volta!', subtitle: 'Hora de ser produtivo?' },
+    { title: 'Que alegria!', subtitle: 'Vamos começar?' },
+  ];
+
+  const getRandomWelcomeMessage = () => {
+    return welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+  };
 
   useEffect(() => {
     const user = UsuarioService.getCurrentUser();
     if (user) {
+      // Verificar se é primeiro acesso
+      const isFirst = sessionStorage.getItem('isFirstAccess') === 'true';
+      setIsFirstAccess(isFirst);
+      
+      if (!isFirst) {
+        setWelcomeMessage(getRandomWelcomeMessage());
+      } else {
+        setWelcomeMessage({ title: 'Bem-vindo ao TaskHub', subtitle: 'Gerencie suas atividades e mantenha-se organizado' });
+        sessionStorage.removeItem('isFirstAccess');
+      }
+
       AgendaService.findByUsuarioId(user.id)
         .then((response) => setEvents(response.data))
         .catch(error => console.error('Erro ao carregar agendas:', error));
@@ -62,9 +89,7 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
       
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
-          <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
-            <div className="sidebar-label">Dashboard</div>
-          </div>
+          
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=agenda'}>
             <div className="sidebar-label">Agenda</div>
           </div>
@@ -85,8 +110,8 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
 
       <div className={`dashboard-content ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="dashboard-header">
-          <h1>Bem-vindo ao TaskHub</h1>
-          <p>Gerencie suas atividades e mantenha-se organizado</p>
+          <h1>{welcomeMessage.title}</h1>
+          <p>{welcomeMessage.subtitle}</p>
         </div>
 
         <div className="activities-section">
