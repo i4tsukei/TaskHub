@@ -141,7 +141,7 @@
 }
 
 .submit-btn {
-  background: rgb(0, 2, 82);
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -151,18 +151,18 @@
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+  box-shadow: 0 4px 15px rgba(13, 27, 94, 0.3);
   width: 100%;
 }
 
 .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(66, 165, 245, 0.4);
+  box-shadow: 0 8px 25px rgba(13, 27, 94, 0.4);
 }
 
 .submit-btn:active {
   transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+  box-shadow: 0 4px 15px rgba(13, 27, 94, 0.3);
 }
 
 @media (max-width: 768px) {

@@ -259,7 +259,7 @@
 }
 
 .setting-btn {
-  background: rgb(141, 150, 160);
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -268,12 +268,12 @@
   font-size: 14px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(126, 186, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(13, 27, 94, 0.3);
 }
 
 .setting-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(126, 186, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(13, 27, 94, 0.4);
 }
 
 .setting-btn:active {
@@ -352,7 +352,7 @@
 }
 
 .save-btn {
-  background: #1a73e8;
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 10px 24px;
@@ -364,7 +364,7 @@
 }
 
 .save-btn:hover {
-  background: #1557b0;
+  background: #0a1347;
 }
 
 
@@ -905,7 +905,7 @@
 .add-item-btn {
   background: none;
   border: none;
-  color: #1a73e8;
+  color: #0d1b5e;
   font-size: 20px;
   cursor: pointer;
   width: 24px;
@@ -923,7 +923,7 @@
 .file-upload-btn {
   background: none;
   border: none;
-  color: #1a73e8;
+  color: #0d1b5e;
   font-size: 14px;
   cursor: pointer;
   text-decoration: underline;
@@ -1119,7 +1119,7 @@
 }
 
 .edit-btn {
-  background: #1a73e8;
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 6px 16px;
@@ -1131,7 +1131,7 @@
 }
 
 .edit-btn:hover {
-  background-color: #1557b0;
+  background-color: #0a1347;
 }
 
 .event-title {
@@ -1207,8 +1207,8 @@
 }
 
 .checkbox.checked {
-  background-color: #1a73e8;
-  border-color: #1a73e8;
+  background-color: #0d1b5e;
+  border-color: #0d1b5e;
 }
 
 .completed-text {
@@ -1226,7 +1226,7 @@
 .detail-checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #1a73e8;
+  accent-color: #0d1b5e;
   cursor: pointer;
 }
 

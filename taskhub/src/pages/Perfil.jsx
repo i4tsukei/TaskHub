@@ -168,7 +168,7 @@ function Perfil({ darkTheme }) {
               {profilePhoto ? (
                 <img src={profilePhoto} alt="Profile" className="profile-image" />
               ) : (
-                <span>U</span>
+                <span>{userData.nome.charAt(0).toUpperCase()}</span>
               )}
             </div>
           </div>

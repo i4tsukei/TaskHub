@@ -45,11 +45,11 @@
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background: rgba(131, 181, 255, 0.3);
+  background: #0d1b5e;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #4c8bd8;
+  color: #ffffff;
   font-size: 2.5rem;
   font-weight: 500;
   cursor: pointer;
@@ -173,7 +173,7 @@
 }
 
 .save-btn {
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -186,9 +186,9 @@
 }
 
 .save-btn:hover {
-  background: linear-gradient(135deg, #6fa3ff 0%, #3a7bc8 100%);
+  background: #0a1347;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(76, 139, 216, 0.3);
+  box-shadow: 0 4px 12px rgba(13, 27, 94, 0.3);
 }
 
 /* Sidebar Styles */
@@ -197,7 +197,7 @@
   top: 20px;
   left: 20px;
   z-index: 1001;
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
   border: none;
   border-radius: 6px;
@@ -205,7 +205,7 @@
   font-size: 18px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(76, 139, 216, 0.3);
+  box-shadow: 0 2px 8px rgba(13, 27, 94, 0.3);
 }
 
 .menu-toggle.open {
@@ -252,12 +252,12 @@
 }
 
 .sidebar-item:hover {
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
 }
 
 .sidebar-item.active {
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
 }
 
@@ -322,7 +322,7 @@
 }
 
 .change-password-btn {
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -337,9 +337,9 @@
 }
 
 .change-password-btn:hover {
-  background: linear-gradient(135deg, #6fa3ff 0%, #3a7bc8 100%);
+  background: #0a1347;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(76, 139, 216, 0.3);
+  box-shadow: 0 4px 12px rgba(13, 27, 94, 0.3);
 }
 
 .account-section {
@@ -366,7 +366,7 @@
 }
 
 .export-btn {
-  background: linear-gradient(135deg, #83b5ff 0%, #4c8bd8 100%);
+  background: #0d1b5e;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -379,9 +379,9 @@
 }
 
 .export-btn:hover {
-  background: linear-gradient(135deg, #6fa3ff 0%, #3a7bc8 100%);
+  background: #0a1347;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(76, 139, 216, 0.3);
+  box-shadow: 0 4px 12px rgba(13, 27, 94, 0.3);
 }
 
 .delete-btn {
