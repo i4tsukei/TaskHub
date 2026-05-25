@@ -1,55 +1,445 @@
+/* ── Dark mode global ── */
 .dark-theme {
-  background-color: #000000 !important;
-  color: #ffffff !important;
+  --bg: #111318;
+  --bg-secondary: #1c1f26;
+  --bg-card: #1c1f26;
+  --border: #2e3240;
+  --text: #e8eaf0;
+  --text-muted: #8b90a0;
+  --accent: #4d6ef5;
+  --accent-hover: #3a5ae0;
 }
 
-.dark-theme * {
-  background-color: inherit;
-  color: inherit;
+/* ── Body & base ── */
+.dark-theme body,
+.dark-theme {
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-.dark-theme input,
-.dark-theme textarea,
-.dark-theme select {
-  background-color: #1a1a1a !important;
-  color: #ffffff !important;
-  border-color: #333333 !important;
-}
-
-.dark-theme .home {
-  background: #000000 !important;
-}
-
-.dark-theme .hero {
-  background: #000000 !important;
-}
-
+/* ── Navbar ── */
 .dark-theme .navbar {
-  background: #1a1a1a !important;
-  border-bottom-color: #333333 !important;
+  background: rgba(17, 19, 24, 0.97) !important;
+  border-bottom-color: var(--border) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+}
+
+.dark-theme .logo {
+  color: #a0b0ff !important;
+}
+
+.dark-theme .nav-links a {
+  color: var(--text-muted) !important;
+  border-color: var(--border) !important;
+}
+
+.dark-theme .nav-links a:hover {
+  color: var(--text) !important;
+  border-color: var(--accent) !important;
+  background: rgba(77, 110, 245, 0.1) !important;
+}
+
+/* ── Home ── */
+.dark-theme .home {
+  background: var(--bg) !important;
 }
 
 .dark-theme .features {
-  background: #1a1a1a !important;
+  background: var(--bg-secondary) !important;
 }
 
-.dark-theme .feature-card {
-  background: #2a2a2a !important;
-  border-color: #333333 !important;
+.dark-theme .features h2 {
+  color: var(--text) !important;
 }
 
+.dark-theme .feature-content h3 {
+  color: #a0b0ff !important;
+}
+
+.dark-theme .feature-content p {
+  color: var(--text-muted) !important;
+}
+
+/* ── Sobre ── */
+.dark-theme .sobre {
+  background: var(--bg) !important;
+}
+
+.dark-theme .sobre-header h1,
+.dark-theme .recursos-section h2,
+.dark-theme .diferenciais-section h2,
+.dark-theme .recurso-item h3,
+.dark-theme .diferencial-content h3 {
+  color: var(--text) !important;
+}
+
+.dark-theme .sobre-header p,
+.dark-theme .recurso-item p,
+.dark-theme .diferencial-content p {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .recurso-item,
+.dark-theme .diferencial-item {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+/* ── Contato ── */
+.dark-theme .contato {
+  background: var(--bg) !important;
+}
+
+.dark-theme .contact-form {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+}
+
+.dark-theme .info-item {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+.dark-theme .info-item h3,
+.dark-theme .info-item p {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .form-input,
+.dark-theme .form-textarea {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .form-input::placeholder,
+.dark-theme .form-textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .form-input:focus,
+.dark-theme .form-textarea:focus {
+  border-color: var(--accent) !important;
+  background: var(--bg-card) !important;
+}
+
+/* ── Login & Cadastro (já têm fundo escuro, só o card) ── */
+.dark-theme .login-card,
+.dark-theme .cadastro-card {
+  background: var(--bg-card) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+.dark-theme .login-header h1,
+.dark-theme .cadastro-header h1 {
+  color: var(--text) !important;
+}
+
+.dark-theme .login-header p,
+.dark-theme .cadastro-header p,
+.dark-theme .login-footer,
+.dark-theme .cadastro-footer {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .form-group label {
+  color: var(--text) !important;
+}
+
+.dark-theme .form-group input {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .social-btn {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .divider::before,
+.dark-theme .divider::after {
+  background: var(--border) !important;
+}
+
+.dark-theme .divider span {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .forgot-modal {
+  background: var(--bg-card) !important;
+}
+
+.dark-theme .forgot-modal h2 {
+  color: var(--text) !important;
+}
+
+.dark-theme .forgot-modal p {
+  color: var(--text-muted) !important;
+}
+
+/* ── Dashboard ── */
 .dark-theme .dashboard-container {
-  background: #000000 !important;
+  background: var(--bg) !important;
 }
 
+.dark-theme .sidebar {
+  background: var(--bg-secondary) !important;
+  border-right-color: var(--border) !important;
+}
+
+.dark-theme .dashboard-header h1 {
+  color: #a0b0ff !important;
+}
+
+.dark-theme .today-section,
+.dark-theme .upcoming-section {
+  background: var(--bg-card) !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important;
+}
+
+.dark-theme .today-section h2,
+.dark-theme .upcoming-section h2 {
+  color: var(--text) !important;
+}
+
+.dark-theme .event-card {
+  background: var(--bg-secondary) !important;
+}
+
+.dark-theme .event-title {
+  color: var(--text) !important;
+}
+
+.dark-theme .event-time,
+.dark-theme .event-date,
+.dark-theme .no-events {
+  color: var(--text-muted) !important;
+}
+
+/* Settings & Notifications modals no Dashboard */
+.dark-theme .settings-modal,
+.dark-theme .notifications-modal {
+  background: var(--bg-card) !important;
+}
+
+.dark-theme .settings-header,
+.dark-theme .notifications-header {
+  border-bottom-color: var(--border) !important;
+}
+
+.dark-theme .settings-header h2,
+.dark-theme .notifications-header h2 {
+  color: var(--text) !important;
+}
+
+.dark-theme .settings-section h3 {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .setting-item,
+.dark-theme .privacy-item {
+  border-bottom-color: var(--border) !important;
+}
+
+.dark-theme .setting-item label,
+.dark-theme .privacy-item label {
+  color: var(--text) !important;
+}
+
+.dark-theme .setting-select {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .notification-item {
+  border-bottom-color: var(--border) !important;
+}
+
+.dark-theme .notification-title {
+  color: #a0b0ff !important;
+}
+
+.dark-theme .notification-text {
+  color: var(--text) !important;
+}
+
+.dark-theme .notification-time,
+.dark-theme .empty-subtext {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .empty-text {
+  color: var(--text) !important;
+}
+
+/* ── Perfil ── */
 .dark-theme .perfil-container {
-  background: #000000 !important;
+  background: var(--bg) !important;
 }
 
-.dark-theme .login-container {
-  background: #000000 !important;
+.dark-theme .perfil-info h2 {
+  color: var(--text) !important;
 }
 
-.dark-theme .cadastro-container {
-  background: #000000 !important;
+.dark-theme .perfil-info p {
+  color: var(--text-muted) !important;
 }
+
+.dark-theme .field-group label {
+  color: var(--text) !important;
+}
+
+.dark-theme .field-group input {
+  color: var(--text) !important;
+  border-bottom-color: var(--border) !important;
+  background: transparent !important;
+}
+
+.dark-theme .field-group input:focus {
+  border-bottom-color: var(--accent) !important;
+}
+
+.dark-theme .privacy-item {
+  border-bottom-color: var(--border) !important;
+}
+
+.dark-theme .privacy-item label {
+  color: var(--text) !important;
+}
+
+.dark-theme .forgot-overlay .forgot-modal {
+  background: var(--bg-card) !important;
+}
+
+/* ── Agenda ── */
+.dark-theme .agenda-container,
+.dark-theme .calendar {
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+
+.dark-theme .calendar-navigation {
+  background-color: var(--bg) !important;
+}
+
+.dark-theme .month-selector,
+.dark-theme .year-selector {
+  color: var(--text) !important;
+}
+
+.dark-theme .nav-btn {
+  color: var(--text) !important;
+}
+
+.dark-theme .calendar-grid {
+  background-color: var(--border) !important;
+}
+
+.dark-theme .calendar-day {
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+
+.dark-theme .calendar-day:hover,
+.dark-theme .calendar-day.active:hover {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark-theme .calendar-day.prev-month,
+.dark-theme .calendar-day.next-month {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark-theme .day-number {
+  color: var(--text) !important;
+}
+
+.dark-theme .calendar-day.prev-month .day-number,
+.dark-theme .calendar-day.next-month .day-number {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .event-form,
+.dark-theme .event-details {
+  background: var(--bg-card) !important;
+}
+
+.dark-theme .form-header,
+.dark-theme .details-header {
+  border-bottom-color: var(--border) !important;
+}
+
+.dark-theme .title-input {
+  color: var(--text) !important;
+}
+
+.dark-theme .date-input,
+.dark-theme .time-input {
+  background: var(--bg-secondary) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .description-input {
+  color: var(--text) !important;
+}
+
+.dark-theme .description-input:focus {
+  background: var(--bg-secondary) !important;
+}
+
+.dark-theme .checklist-header span,
+.dark-theme .attachment-header span {
+  color: var(--text) !important;
+}
+
+.dark-theme .checklist-text {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .form-footer {
+  background: var(--bg-secondary) !important;
+  border-top-color: var(--border) !important;
+}
+
+.dark-theme .event-title {
+  color: var(--text) !important;
+}
+
+.dark-theme .detail-label {
+  color: var(--text-muted) !important;
+}
+
+.dark-theme .detail-value,
+.dark-theme .detail-description {
+  color: var(--text) !important;
+}
+
+.dark-theme .context-menu {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+.dark-theme .context-menu-item {
+  color: var(--text) !important;
+}
+
+.dark-theme .context-menu-item:hover {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark-theme .context-menu-divider {
+  background-color: var(--border) !important;
+}
+
+.dark-theme .context-menu-title {
+  color: var(--text-muted) !important;
+}
+
+/* ── Footer ── */
+/* Footer já tem fundo escuro (#0d1b5e), não precisa de override */

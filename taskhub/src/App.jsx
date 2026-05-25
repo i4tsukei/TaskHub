@@ -34,7 +34,7 @@ function App() {
       case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
       case 'contato': return <Contato darkTheme={darkTheme}/>;
       case 'sobre': return <Sobre darkTheme={darkTheme}/>;
-      case 'perfil': return <Perfil darkTheme={darkTheme}/>;
+      case 'perfil': return <Perfil darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
       case 'dashboard': return <Dashboard darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
 
       default: return <Home setCurrentPage={setCurrentPage}/>;
@@ -43,7 +43,7 @@ function App() {
 
   return (
     <div className={darkTheme ? 'dark-theme' : ''}>
-      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && currentPage !== 'agenda' && currentPage !== 'perfil' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>}
+      {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'dashboard' && currentPage !== 'agenda' && currentPage !== 'perfil' && <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>}
       {renderPage()}
       {currentPage !== 'login' && currentPage !== 'cadastro' && currentPage !== 'agenda' && <Footer/>}
     </div>

@@ -1,6 +1,6 @@
 import './Navbar.css';
 
-function Navbar({ setCurrentPage }) {
+function Navbar({ setCurrentPage, darkTheme, setDarkTheme }) {
   return (
     <nav className="navbar">
       <div className="logo" onClick={() => setCurrentPage('home')}>
@@ -33,7 +33,16 @@ function Navbar({ setCurrentPage }) {
         <li><a href="#" onClick={() => setCurrentPage('home')}>Home</a></li>
         <li><a href="#" onClick={() => setCurrentPage('contato')}>Contato</a></li>
       </ul>
-      <button className="sign-in" onClick={() => setCurrentPage('login')}>Entrar</button>
+      <div className="navbar-right">
+        <button
+          className="theme-toggle"
+          onClick={() => setDarkTheme(!darkTheme)}
+          title={darkTheme ? 'Modo claro' : 'Modo escuro'}
+        >
+          {darkTheme ? '☀️' : '🌙'}
+        </button>
+        <button className="sign-in" onClick={() => setCurrentPage('login')}>Entrar</button>
+      </div>
     </nav>
   );
 }

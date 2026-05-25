@@ -220,7 +220,7 @@ function Home({ setCurrentPage }) {
           </div>
         </div>
       )}
-      <div className={showSplash ? 'home hidden' : 'home'}>
+      <div className={showSplash ? 'home hidden' : `home ${darkTheme ? 'dark-theme' : ''}`}>
       {/* Hero */}
       <section className="hero">
         <div className="hero-particles">

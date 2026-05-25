@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Perfil.css';
 import UsuarioService from '../services/UsuarioService';
 
-function Perfil({ darkTheme }) {
+function Perfil({ darkTheme, setDarkTheme = () => {} }) {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
@@ -12,17 +12,9 @@ function Perfil({ darkTheme }) {
   useEffect(() => {
     const user = UsuarioService.getCurrentUser();
     if (user) {
-      setUserData({
-        nome: user.nome || '',
-        email: user.email || '',
-        telefone: user.telefone || ''
-      });
+      setUserData({ nome: user.nome || '', email: user.email || '', telefone: user.telefone || '' });
     }
   }, []);
-
-  const handlePhotoClick = () => {
-    setShowPhotoOptions(true);
-  };
 
   const handleChangePhoto = () => {
     const input = document.createElement('input');
@@ -40,34 +32,15 @@ function Perfil({ darkTheme }) {
     setShowPhotoOptions(false);
   };
 
-  const handleRemovePhoto = () => {
-    setProfilePhoto(null);
-    setShowPhotoOptions(false);
-  };
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
-
   const handleSavePersonalData = () => {
     const user = UsuarioService.getCurrentUser();
     if (user) {
-      const dataToUpdate = {
-        nome: userData.nome,
-        email: userData.email,
-        senha: user.senha // Mantém a senha atual
-      };
-      
-      UsuarioService.update(user.id, dataToUpdate)
-        .then((response) => {
+      UsuarioService.update(user.id, { nome: userData.nome, email: userData.email, senha: user.senha })
+        .then(() => {
           alert('Dados atualizados com sucesso!');
-          const updatedUser = { ...user, ...userData };
-          localStorage.setItem('user', JSON.stringify(updatedUser));
+          localStorage.setItem('user', JSON.stringify({ ...user, ...userData }));
         })
-        .catch(error => {
-          console.error('Erro ao atualizar dados:', error);
-          alert('Erro ao atualizar dados: ' + (error.response?.data?.message || error.message));
-        });
+        .catch(error => alert('Erro ao atualizar dados: ' + (error.response?.data?.message || error.message)));
     }
   };
 
@@ -80,14 +53,8 @@ function Perfil({ darkTheme }) {
     e.preventDefault();
     setForgotError('');
     setForgotSuccess('');
-    if (forgotData.novaSenha.length < 6) {
-      setForgotError('A senha deve ter pelo menos 6 caracteres.');
-      return;
-    }
-    if (forgotData.novaSenha !== forgotData.confirmarSenha) {
-      setForgotError('As senhas não coincidem.');
-      return;
-    }
+    if (forgotData.novaSenha.length < 6) { setForgotError('A senha deve ter pelo menos 6 caracteres.'); return; }
+    if (forgotData.novaSenha !== forgotData.confirmarSenha) { setForgotError('As senhas não coincidem.'); return; }
     const user = UsuarioService.getCurrentUser();
     if (!user) return;
     UsuarioService.resetSenha(user.email, forgotData.novaSenha)
@@ -106,42 +73,9 @@ function Perfil({ darkTheme }) {
     setForgotSuccess('');
   };
 
-  const renderContent = () => {
-    return (
-      <div className="perfil-fields">
-        <div className="field-group">
-          <label>Nome</label>
-          <input
-            type="text"
-            value={userData.nome}
-            onChange={(e) => setUserData({...userData, nome: e.target.value})}
-          />
-        </div>
-        <div className="field-group">
-          <label>Email</label>
-          <input
-            type="email"
-            value={userData.email}
-            onChange={(e) => setUserData({...userData, email: e.target.value})}
-          />
-          <span className="perfil-forgot-link" onClick={() => setShowForgot(true)}>Esqueci a senha</span>
-        </div>
-        <div className="field-group">
-          <label>Telefone</label>
-          <input
-            type="tel"
-            placeholder="(00) 00000-0000"
-            value={userData.telefone}
-            onChange={(e) => setUserData({...userData, telefone: e.target.value})}
-          />
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className={`perfil-container ${darkTheme ? 'dark-theme' : ''}`}>
-      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
+      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={() => setShowSidebar(!showSidebar)}>
         ☰
       </button>
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
@@ -158,13 +92,16 @@ function Perfil({ darkTheme }) {
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
           </div>
+          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
+            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
+          </div>
         </div>
       </div>
-      
+
       <div className={`perfil-content ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="perfil-card">
           <div className="perfil-avatar">
-            <div className="avatar-circle" onClick={handlePhotoClick}>
+            <div className="avatar-circle" onClick={() => setShowPhotoOptions(true)}>
               {profilePhoto ? (
                 <img src={profilePhoto} alt="Profile" className="profile-image" />
               ) : (
@@ -172,32 +109,43 @@ function Perfil({ darkTheme }) {
               )}
             </div>
           </div>
-          
+
           {showPhotoOptions && (
             <div className="photo-options-overlay" onClick={() => setShowPhotoOptions(false)}>
               <div className="photo-options-menu" onClick={(e) => e.stopPropagation()}>
-                <div className="photo-option" onClick={handleChangePhoto}>
-                  Alterar foto
-                </div>
-                <div className="photo-option" onClick={handleRemovePhoto}>
-                  Remover foto
-                </div>
+                <div className="photo-option" onClick={handleChangePhoto}>Alterar foto</div>
+                <div className="photo-option" onClick={() => { setProfilePhoto(null); setShowPhotoOptions(false); }}>Remover foto</div>
               </div>
             </div>
           )}
-          
+
           <div className="perfil-info">
             <h2>{userData.nome || 'Usuário'}</h2>
             <p>{userData.email || 'usuario@email.com'}</p>
           </div>
-          
-          {renderContent()}
-          
+
+          <div className="perfil-fields">
+            <div className="field-group">
+              <label>Nome</label>
+              <input type="text" value={userData.nome} onChange={(e) => setUserData({...userData, nome: e.target.value})} />
+            </div>
+            <div className="field-group">
+              <label>Email</label>
+              <input type="email" value={userData.email} onChange={(e) => setUserData({...userData, email: e.target.value})} />
+              <span className="perfil-forgot-link" onClick={() => setShowForgot(true)}>Esqueci a senha</span>
+            </div>
+            <div className="field-group">
+              <label>Telefone</label>
+              <input type="tel" placeholder="(00) 00000-0000" value={userData.telefone} onChange={(e) => setUserData({...userData, telefone: e.target.value})} />
+            </div>
+          </div>
+
           <div className="perfil-actions">
             <button className="save-btn" onClick={handleSavePersonalData}>Salvar</button>
           </div>
         </div>
       </div>
+
       {showForgot && (
         <div className="forgot-overlay" onClick={closeForgot}>
           <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
@@ -207,21 +155,11 @@ function Perfil({ darkTheme }) {
             <form onSubmit={handleForgotReset}>
               <div className="field-group">
                 <label>Nova Senha</label>
-                <input
-                  type="password"
-                  value={forgotData.novaSenha}
-                  onChange={(e) => setForgotData({ ...forgotData, novaSenha: e.target.value })}
-                  required
-                />
+                <input type="password" value={forgotData.novaSenha} onChange={(e) => setForgotData({ ...forgotData, novaSenha: e.target.value })} required />
               </div>
               <div className="field-group">
                 <label>Confirmar Senha</label>
-                <input
-                  type="password"
-                  value={forgotData.confirmarSenha}
-                  onChange={(e) => setForgotData({ ...forgotData, confirmarSenha: e.target.value })}
-                  required
-                />
+                <input type="password" value={forgotData.confirmarSenha} onChange={(e) => setForgotData({ ...forgotData, confirmarSenha: e.target.value })} required />
               </div>
               {forgotError && <p className="password-error">{forgotError}</p>}
               {forgotSuccess && <p className="password-success">{forgotSuccess}</p>}

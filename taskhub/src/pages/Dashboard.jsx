@@ -105,6 +105,9 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
           </div>
+          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
+            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
+          </div>
         </div>
       </div>
 

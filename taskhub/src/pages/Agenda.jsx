@@ -3,7 +3,7 @@ import './Agenda.css';
 import AgendaService from '../services/AgendaService';
 import UsuarioService from '../services/UsuarioService';
 
-function Agenda() {
+function Agenda({ darkTheme, setDarkTheme = () => {} }) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -28,62 +28,38 @@ function Agenda() {
         .catch(error => console.error('Erro ao carregar agendas:', error));
     }
   }, []);
+
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [eventForm, setEventForm] = useState({
-    title: '',
-    date: '',
-    time: '',
-    description: '',
-    checklist: [],
-    image: null,
-    color: '#1a73e8',
-    icon: ''
+    title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8', icon: ''
   });
   const [contextMenu, setContextMenu] = useState({ show: false, x: 0, y: 0, eventId: null });
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
 
-
   const eventColors = {
-    purple: '#c684d1ff',
-    pink: '#e961ddff',
-    blue: '#7badeeff',
-    yellow: '#ffc15eff',
-    red: '#f35b5bff',
-    orange: '#f0a739ff',
-    green: '#87ec8cff'
+    purple: '#c684d1ff', pink: '#e961ddff', blue: '#7badeeff',
+    yellow: '#ffc15eff', red: '#f35b5bff', orange: '#f0a739ff', green: '#87ec8cff'
   };
 
   const handleAddEvent = () => {
     if (eventForm.title && eventForm.date) {
       const user = UsuarioService.getCurrentUser();
       const data = {
-        usuarioId: user.id,
-        titulo: eventForm.title,
-        dataAgenda: eventForm.date,
-        hora: eventForm.time,
-        descricao: eventForm.description,
-        cor: eventForm.color,
-        statusAgenda: 'ativo',
+        usuarioId: user.id, titulo: eventForm.title, dataAgenda: eventForm.date,
+        hora: eventForm.time, descricao: eventForm.description, cor: eventForm.color, statusAgenda: 'ativo',
       };
-
       if (eventForm.id) {
         AgendaService.update(eventForm.id, data)
-          .then((response) => {
-            setEvents(events.map(event =>
-              event.id === eventForm.id ? { ...eventForm, id: response.data.id } : event
-            ));
-          })
+          .then((response) => setEvents(events.map(e => e.id === eventForm.id ? { ...eventForm, id: response.data.id } : e)))
           .catch(error => alert('Erro ao atualizar evento: ' + (error.response?.data?.message || error.message)));
       } else {
         AgendaService.create(data)
-          .then((response) => {
-            setEvents([...events, { ...eventForm, id: response.data.id }]);
-          })
+          .then((response) => setEvents([...events, { ...eventForm, id: response.data.id }]))
           .catch(error => alert('Erro ao criar evento: ' + (error.response?.data?.message || error.message)));
       }
       setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8', icon: '' });
@@ -92,54 +68,29 @@ function Agenda() {
   };
 
   const handleEventRightClick = (e, eventId) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setContextMenu({
-      show: true,
-      x: e.clientX,
-      y: e.clientY,
-      eventId
-    });
+    e.preventDefault(); e.stopPropagation();
+    setContextMenu({ show: true, x: e.clientX, y: e.clientY, eventId });
   };
 
   const deleteEvent = (eventId) => {
     AgendaService.remove(eventId)
-      .then(() => {
-        setEvents(events.filter(event => event.id !== eventId));
-      })
+      .then(() => setEvents(events.filter(e => e.id !== eventId)))
       .catch(error => alert('Erro ao excluir evento: ' + (error.response?.data?.message || error.message)));
     setContextMenu({ show: false, x: 0, y: 0, eventId: null });
   };
 
   const changeEventColor = (eventId, color) => {
-    setEvents(events.map(event => 
-      event.id === eventId ? { ...event, color } : event
-    ));
+    setEvents(events.map(e => e.id === eventId ? { ...e, color } : e));
     setContextMenu({ show: false, x: 0, y: 0, eventId: null });
   };
 
-  const changeEventIcon = (eventId, icon) => {
-    setEvents(events.map(event => 
-      event.id === eventId ? { ...event, icon } : event
-    ));
-    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
-  };
-
-  const closeContextMenu = () => {
-    setContextMenu({ show: false, x: 0, y: 0, eventId: null });
-  };
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
+  const closeContextMenu = () => setContextMenu({ show: false, x: 0, y: 0, eventId: null });
 
   const handleNewEvent = () => {
     setEventForm({ title: '', date: '', time: '', description: '', checklist: [], image: null, color: '#1a73e8', icon: '' });
     setShowModal(true);
     setShowSidebar(false);
   };
-
-
 
   const handleEventClick = (e, event) => {
     e.stopPropagation();
@@ -150,28 +101,18 @@ function Agenda() {
   const updateEventChecklistItem = (eventId, itemIndex, completed) => {
     setEvents(events.map(event => {
       if (event.id === eventId) {
-        const updatedChecklist = event.checklist.map((item, index) => 
-          index === itemIndex ? { ...item, completed } : item
-        );
+        const updatedChecklist = event.checklist.map((item, index) => index === itemIndex ? { ...item, completed } : item);
         return { ...event, checklist: updatedChecklist };
       }
       return event;
     }));
-    
-    // Atualizar também o selectedEvent para refletir a mudança imediatamente
     if (selectedEvent && selectedEvent.id === eventId) {
-      const updatedChecklist = selectedEvent.checklist.map((item, index) => 
-        index === itemIndex ? { ...item, completed } : item
-      );
+      const updatedChecklist = selectedEvent.checklist.map((item, index) => index === itemIndex ? { ...item, completed } : item);
       setSelectedEvent({ ...selectedEvent, checklist: updatedChecklist });
     }
   };
 
-  const editEvent = () => {
-    setEventForm(selectedEvent);
-    setShowEventDetails(false);
-    setShowModal(true);
-  };
+  const editEvent = () => { setEventForm(selectedEvent); setShowEventDetails(false); setShowModal(true); };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -182,12 +123,7 @@ function Agenda() {
     }
   };
 
-  const addChecklistItem = () => {
-    setEventForm({
-      ...eventForm,
-      checklist: [...eventForm.checklist, { text: '', completed: false }]
-    });
-  };
+  const addChecklistItem = () => setEventForm({ ...eventForm, checklist: [...eventForm.checklist, { text: '', completed: false }] });
 
   const updateChecklistItem = (index, field, value) => {
     const newChecklist = [...eventForm.checklist];
@@ -200,80 +136,43 @@ function Agenda() {
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = firstDay.getDay();
-    
     const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
     const prevMonthLastDay = new Date(prevYear, prevMonth + 1, 0).getDate();
-
     const days = [];
-    
-    // Previous month days
-    for (let i = startingDayOfWeek - 1; i >= 0; i--) {
-      days.push({ day: prevMonthLastDay - i, type: 'prev' });
-    }
-    
-    // Current month days
-    for (let day = 1; day <= daysInMonth; day++) {
-      days.push({ day, type: 'current' });
-    }
-    
-    // Next month days
-    const totalCells = 42; // 6 rows × 7 days
-    const remainingCells = totalCells - days.length;
-    for (let day = 1; day <= remainingCells; day++) {
-      days.push({ day, type: 'next' });
-    }
-    
+    for (let i = startingDayOfWeek - 1; i >= 0; i--) days.push({ day: prevMonthLastDay - i, type: 'prev' });
+    for (let day = 1; day <= daysInMonth; day++) days.push({ day, type: 'current' });
+    const remainingCells = 42 - days.length;
+    for (let day = 1; day <= remainingCells; day++) days.push({ day, type: 'next' });
     return days;
   };
 
   const formatDate = (day) => {
     const month = String(currentMonth + 1).padStart(2, '0');
-    const dayStr = String(day).padStart(2, '0');
-    return `${currentYear}-${month}-${dayStr}`;
+    return `${currentYear}-${month}-${String(day).padStart(2, '0')}`;
   };
 
-  const getEventsForDay = (day) => {
-    const dateStr = formatDate(day);
-    return events.filter(event => event.date === dateStr);
-  };
-
-
+  const getEventsForDay = (day) => events.filter(e => e.date === formatDate(day));
 
   const handleDayClick = (day) => {
-    if (day) {
-      const dateStr = formatDate(day);
-      setEventForm({ ...eventForm, date: dateStr });
-      setShowModal(true);
-    }
+    if (day) { setEventForm({ ...eventForm, date: formatDate(day) }); setShowModal(true); }
   };
 
-  const monthNames = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
+  const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
   const prevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
+    if (currentMonth === 0) { setCurrentMonth(11); setCurrentYear(currentYear - 1); }
+    else setCurrentMonth(currentMonth - 1);
   };
 
   const nextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
+    if (currentMonth === 11) { setCurrentMonth(0); setCurrentYear(currentYear + 1); }
+    else setCurrentMonth(currentMonth + 1);
   };
 
   return (
-    <div className="agenda-container" style={{backgroundColor: '#ffffff', fontFamily: "'Inter', sans-serif"}} onClick={closeContextMenu}>
-      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={toggleSidebar}>
+    <div className={`agenda-container ${darkTheme ? 'dark-theme' : ''}`} style={{fontFamily: "'Inter', sans-serif"}} onClick={closeContextMenu}>
+      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={() => setShowSidebar(!showSidebar)}>
         ☰
       </button>
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
@@ -290,31 +189,22 @@ function Agenda() {
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
           </div>
+          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
+            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
+          </div>
         </div>
       </div>
-      
+
       <div className={`calendar ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="calendar-navigation">
           <div className="nav-left" style={{ marginLeft: '70px' }}>
             <button onClick={prevMonth} className="nav-btn">‹</button>
             <div className="month-year">
-              <select 
-                value={currentMonth} 
-                onChange={(e) => setCurrentMonth(parseInt(e.target.value))}
-                className="month-selector"
-              >
-                {monthNames.map((month, index) => (
-                  <option key={index} value={index}>{month}</option>
-                ))}
+              <select value={currentMonth} onChange={(e) => setCurrentMonth(parseInt(e.target.value))} className="month-selector">
+                {monthNames.map((month, index) => <option key={index} value={index}>{month}</option>)}
               </select>
-              <select 
-                value={currentYear} 
-                onChange={(e) => setCurrentYear(parseInt(e.target.value))}
-                className="year-selector"
-              >
-                {Array.from({length: currentYear - 2019 + 11}, (_, i) => 2019 + i).map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
+              <select value={currentYear} onChange={(e) => setCurrentYear(parseInt(e.target.value))} className="year-selector">
+                {Array.from({length: currentYear - 2019 + 11}, (_, i) => 2019 + i).map(year => <option key={year} value={year}>{year}</option>)}
               </select>
             </div>
             <button onClick={nextMonth} className="nav-btn">›</button>
@@ -325,8 +215,8 @@ function Agenda() {
         </div>
         <div className="calendar-grid">
           {getDaysInMonth().map((dayObj, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`calendar-day ${dayObj.type === 'current' ? 'active' : dayObj.type === 'prev' ? 'prev-month' : 'next-month'}`}
               onClick={() => dayObj.type === 'current' && handleDayClick(dayObj.day)}
             >
@@ -334,8 +224,8 @@ function Agenda() {
               {dayObj.type === 'current' && (
                 <div className="day-events">
                   {getEventsForDay(dayObj.day).map(event => (
-                    <div 
-                      key={event.id} 
+                    <div
+                      key={event.id}
                       className="event-preview"
                       style={{ backgroundColor: event.color || '#1a73e8' }}
                       onClick={(e) => handleEventClick(e, event)}
@@ -356,49 +246,25 @@ function Agenda() {
         <div className="event-overlay">
           <div className="event-form">
             <div className="form-header">
-              <input
-                type="text"
-                placeholder="Adicionar título"
-                value={eventForm.title}
-                onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })}
-                className="title-input"
-              />
+              <input type="text" placeholder="Adicionar título" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} className="title-input" />
               <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
             </div>
-            
             <div className="form-body">
               <div className="form-field">
                 <div className="field-icon"></div>
                 <div className="field-content">
                   <div className="datetime-row">
-                    <input
-                      type="date"
-                      value={eventForm.date}
-                      onChange={(e) => setEventForm({ ...eventForm, date: e.target.value })}
-                      className="date-input"
-                    />
-                    <input
-                      type="time"
-                      value={eventForm.time}
-                      onChange={(e) => setEventForm({ ...eventForm, time: e.target.value })}
-                      className="time-input"
-                    />
+                    <input type="date" value={eventForm.date} onChange={(e) => setEventForm({ ...eventForm, date: e.target.value })} className="date-input" />
+                    <input type="time" value={eventForm.time} onChange={(e) => setEventForm({ ...eventForm, time: e.target.value })} className="time-input" />
                   </div>
                 </div>
               </div>
-
               <div className="form-field">
                 <div className="field-icon"></div>
                 <div className="field-content">
-                  <textarea
-                    placeholder="Adicionar descrição"
-                    value={eventForm.description}
-                    onChange={(e) => setEventForm({ ...eventForm, description: e.target.value })}
-                    className="description-input"
-                  />
+                  <textarea placeholder="Adicionar descrição" value={eventForm.description} onChange={(e) => setEventForm({ ...eventForm, description: e.target.value })} className="description-input" />
                 </div>
               </div>
-
               <div className="form-field">
                 <div className="field-icon"></div>
                 <div className="field-content">
@@ -408,23 +274,12 @@ function Agenda() {
                   </div>
                   {eventForm.checklist.map((item, index) => (
                     <div key={index} className="checklist-item">
-                      <input
-                        type="checkbox"
-                        checked={item.completed}
-                        onChange={(e) => updateChecklistItem(index, 'completed', e.target.checked)}
-                      />
-                      <input
-                        type="text"
-                        placeholder="Adicionar item"
-                        value={item.text}
-                        onChange={(e) => updateChecklistItem(index, 'text', e.target.value)}
-                        className="checklist-text"
-                      />
+                      <input type="checkbox" checked={item.completed} onChange={(e) => updateChecklistItem(index, 'completed', e.target.checked)} />
+                      <input type="text" placeholder="Adicionar item" value={item.text} onChange={(e) => updateChecklistItem(index, 'text', e.target.value)} className="checklist-text" />
                     </div>
                   ))}
                 </div>
               </div>
-
               <div className="form-field">
                 <div className="field-icon"></div>
                 <div className="field-content">
@@ -439,21 +294,13 @@ function Agenda() {
                     <div className="attachment-preview">
                       <div className="image-container">
                         <img src={eventForm.image} alt="Preview" className="image-preview" />
-                        <button 
-                          type="button" 
-                          onClick={() => setEventForm({ ...eventForm, image: null })}
-                          className="delete-image-btn"
-                          title="Remover imagem"
-                        >
-                          ×
-                        </button>
+                        <button type="button" onClick={() => setEventForm({ ...eventForm, image: null })} className="delete-image-btn" title="Remover imagem">×</button>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
             </div>
-            
             <div className="form-footer">
               <button className="save-btn" onClick={handleAddEvent}>Salvar</button>
             </div>
@@ -472,7 +319,6 @@ function Agenda() {
                 <button className="close-btn" onClick={() => setShowEventDetails(false)}>×</button>
               </div>
             </div>
-            
             <div className="details-body">
               {selectedEvent.date && (
                 <div className="detail-item left-aligned">
@@ -480,40 +326,31 @@ function Agenda() {
                   <span className="detail-value">{selectedEvent.date.split('-').reverse().join('/')}</span>
                 </div>
               )}
-              
               {selectedEvent.time && (
                 <div className="detail-item left-aligned">
                   <span className="detail-label">Horário:</span>
                   <span className="detail-value">{selectedEvent.time}</span>
                 </div>
               )}
-              
               {selectedEvent.description && (
                 <div className="detail-item left-aligned">
                   <span className="detail-label">Descrição:</span>
                   <p className="detail-description">{selectedEvent.description}</p>
                 </div>
               )}
-              
               {selectedEvent.checklist && selectedEvent.checklist.length > 0 && (
                 <div className="detail-item left-aligned">
                   <span className="detail-label">Checklist:</span>
                   <div className="detail-checklist">
                     {selectedEvent.checklist.map((item, index) => (
                       <div key={index} className="checklist-detail-item">
-                        <input
-                          type="checkbox"
-                          checked={item.completed}
-                          onChange={(e) => updateEventChecklistItem(selectedEvent.id, index, e.target.checked)}
-                          className="detail-checkbox"
-                        />
+                        <input type="checkbox" checked={item.completed} onChange={(e) => updateEventChecklistItem(selectedEvent.id, index, e.target.checked)} className="detail-checkbox" />
                         <span className={item.completed ? 'completed-text' : ''}>{item.text}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
-              
               {selectedEvent.image && (
                 <div className="detail-item left-aligned">
                   <span className="detail-label">Anexo:</span>
@@ -526,36 +363,19 @@ function Agenda() {
       )}
 
       {contextMenu.show && (
-        <div 
-          className="context-menu"
-          style={{ left: contextMenu.x, top: contextMenu.y }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="context-menu-item delete" onClick={() => deleteEvent(contextMenu.eventId)}>
-            Excluir evento
-          </div>
+        <div className="context-menu" style={{ left: contextMenu.x, top: contextMenu.y }} onClick={(e) => e.stopPropagation()}>
+          <div className="context-menu-item delete" onClick={() => deleteEvent(contextMenu.eventId)}>Excluir evento</div>
           <div className="context-menu-divider"></div>
           <div className="context-menu-section">
             <div className="context-menu-title">Alterar cor</div>
             <div className="color-options">
               {Object.entries(eventColors).map(([name, color]) => (
-                <div
-                  key={name}
-                  className="color-option"
-                  style={{ backgroundColor: color }}
-                  onClick={() => changeEventColor(contextMenu.eventId, color)}
-                  title={name}
-                ></div>
+                <div key={name} className="color-option" style={{ backgroundColor: color }} onClick={() => changeEventColor(contextMenu.eventId, color)} title={name}></div>
               ))}
             </div>
           </div>
-
         </div>
       )}
-
-
-
-
     </div>
   );
 }
