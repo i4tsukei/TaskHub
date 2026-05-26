@@ -98,15 +98,6 @@
   transform: translateY(-1px);
 }
 
-.dark-theme .theme-toggle {
-  border-color: #2e3240;
-}
-
-.dark-theme .theme-toggle:hover {
-  border-color: #4d6ef5;
-  background: rgba(77, 110, 245, 0.1);
-}
-
 .sign-in {
   background: linear-gradient(135deg, #0d1b5e 0%, #1a237e 100%);
   color: white;
