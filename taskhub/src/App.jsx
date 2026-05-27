@@ -14,7 +14,9 @@ import Footer from "./pages/Footer.jsx";
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(() => {
+    return localStorage.getItem('taskhub-theme') === 'dark';
+  });
   
   console.log('Página atual:', currentPage);
 
@@ -26,9 +28,13 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('taskhub-theme', darkTheme ? 'dark' : 'light');
+  }, [darkTheme]);
+
   const renderPage = () => {
     switch(currentPage) {
-      case 'home': return <Home setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
+      case 'home': return <Home setCurrentPage={setCurrentPage} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
       case 'agenda': return <Agenda darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
       case 'login': return <Login setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
       case 'cadastro': return <Cadastro setCurrentPage={setCurrentPage} darkTheme={darkTheme}/>;
@@ -37,7 +43,7 @@ function App() {
       case 'perfil': return <Perfil darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
       case 'dashboard': return <Dashboard darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
 
-      default: return <Home setCurrentPage={setCurrentPage}/>;
+      default: return <Home setCurrentPage={setCurrentPage} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>;
     }
   };
 

@@ -66,6 +66,10 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
     setDarkTheme(isDark);
   };
 
+  const handleThemeToggle = () => {
+    handleThemeChange(!darkTheme);
+  };
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('pt-BR');
@@ -87,6 +91,19 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
         ☰
       </button>
       
+      <button
+        className={`dashboard-theme-toggle ${darkTheme ? 'active' : ''}`}
+        onClick={handleThemeToggle}
+        type="button"
+        aria-label={darkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'}
+        title={darkTheme ? 'Modo claro' : 'Modo escuro'}
+      >
+        <span className="theme-toggle-track">
+          <span className="theme-toggle-thumb"></span>
+        </span>
+        <span className="theme-toggle-label">{darkTheme ? 'Claro' : 'Escuro'}</span>
+      </button>
+
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
           
@@ -104,9 +121,6 @@ function Dashboard({ darkTheme, setDarkTheme = () => {} }) {
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
-          </div>
-          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
-            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
           </div>
         </div>
       </div>

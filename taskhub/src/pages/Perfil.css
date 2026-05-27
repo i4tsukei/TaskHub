@@ -214,6 +214,14 @@
   box-shadow: 0 2px 8px rgba(216, 178, 178, 0.1);
 }
 
+.perfil-container.dark-theme .menu-toggle,
+.perfil-container.dark-theme .menu-toggle.open {
+  background: #1c1f26;
+  color: #ffffff;
+  border: 1px solid #2e3240;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -259,6 +267,16 @@
 .sidebar-item.active {
   background: #0d1b5e;
   color: white;
+}
+
+.perfil-container.dark-theme .sidebar-item {
+  color: #ffffff;
+}
+
+.perfil-container.dark-theme .sidebar-item:hover,
+.perfil-container.dark-theme .sidebar-item.active {
+  background: #4d6ef5;
+  color: #ffffff;
 }
 
 .sidebar-label {

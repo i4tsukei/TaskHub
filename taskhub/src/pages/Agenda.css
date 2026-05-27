@@ -31,6 +31,14 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.agenda-container.dark-theme .menu-toggle,
+.agenda-container.dark-theme .menu-toggle.open {
+  background: #1c1f26;
+  color: #ffffff;
+  border: 1px solid #2e3240;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
 .menu-toggle:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(126, 186, 255, 0.4);
@@ -98,6 +106,15 @@
   color: #202124;
   transform: translateX(2px);
   border-left-color: #e8f0fe;
+}
+
+.agenda-container.dark-theme .sidebar-item {
+  color: #ffffff;
+}
+
+.agenda-container.dark-theme .sidebar-item:hover {
+  background-color: #4d6ef5;
+  color: #ffffff;
 }
 
 .sidebar-item:active {

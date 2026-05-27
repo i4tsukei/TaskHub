@@ -81,23 +81,6 @@
   z-index: 1001;
 }
 
-.theme-toggle {
-  background: transparent;
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  border-radius: 25px;
-  padding: 0.45rem 0.75rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  line-height: 1;
-}
-
-.theme-toggle:hover {
-  border-color: #0d1b5e;
-  background: rgba(13, 27, 94, 0.05);
-  transform: translateY(-1px);
-}
-
 .sign-in {
   background: linear-gradient(135deg, #0d1b5e 0%, #1a237e 100%);
   color: white;
