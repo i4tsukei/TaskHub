@@ -3,7 +3,7 @@ import './Agenda.css';
 import AgendaService from '../services/AgendaService';
 import UsuarioService from '../services/UsuarioService';
 
-function Agenda({ darkTheme, setDarkTheme = () => {} }) {
+function Agenda({ darkTheme }) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -188,9 +188,6 @@ function Agenda({ darkTheme, setDarkTheme = () => {} }) {
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
-          </div>
-          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
-            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
           </div>
         </div>
       </div>

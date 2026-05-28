@@ -273,9 +273,20 @@
   color: #ffffff;
 }
 
+.perfil-container.dark-theme .sidebar-label {
+  color: #ffffff;
+}
+
 .perfil-container.dark-theme .sidebar-item:hover,
 .perfil-container.dark-theme .sidebar-item.active {
   background: #4d6ef5;
+  color: #ffffff;
+}
+
+.perfil-container.dark-theme .sidebar-item:hover .sidebar-label,
+.perfil-container.dark-theme .sidebar-item.active .sidebar-label,
+.perfil-container.dark-theme .sidebar-item:active,
+.perfil-container.dark-theme .sidebar-item:active .sidebar-label {
   color: #ffffff;
 }
 

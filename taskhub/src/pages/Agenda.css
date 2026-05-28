@@ -112,8 +112,21 @@
   color: #ffffff;
 }
 
+.agenda-container.dark-theme .sidebar-label,
+.agenda-container.dark-theme .sidebar-icon {
+  color: #ffffff;
+}
+
 .agenda-container.dark-theme .sidebar-item:hover {
   background-color: #4d6ef5;
+  color: #ffffff;
+}
+
+.agenda-container.dark-theme .sidebar-item:hover .sidebar-label,
+.agenda-container.dark-theme .sidebar-item:hover .sidebar-icon,
+.agenda-container.dark-theme .sidebar-item:active,
+.agenda-container.dark-theme .sidebar-item:active .sidebar-label,
+.agenda-container.dark-theme .sidebar-item:active .sidebar-icon {
   color: #ffffff;
 }
 
@@ -121,6 +134,17 @@
   background-color: #e8f0fe;
   color: #1a73e8;
   border-left-color: #1a73e8;
+}
+
+.agenda-container.dark-theme .sidebar-item:active {
+  background-color: #4d6ef5;
+  color: #ffffff;
+  border-left-color: #ffffff;
+}
+
+.agenda-container.dark-theme .sidebar-item:active .sidebar-label,
+.agenda-container.dark-theme .sidebar-item:active .sidebar-icon {
+  color: #ffffff;
 }
 
 .sidebar-icon {
@@ -743,12 +767,22 @@
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.agenda-container.dark-theme .event-form {
+  background: #1c1f26;
+  border-color: #2e3240;
+  color: #ffffff;
+}
+
 .form-header {
   display: flex;
   align-items: center;
   padding: 32px 40px 16px;
   gap: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.agenda-container.dark-theme .form-header {
+  border-bottom-color: #2e3240;
 }
 
 .event-color {
@@ -772,14 +806,28 @@
   font-family: inherit;
 }
 
+.agenda-container.dark-theme .title-input {
+  color: #ffffff;
+  background: transparent;
+}
+
 .title-input::placeholder {
   color: #9b9a97;
   font-weight: 400;
 }
 
+.agenda-container.dark-theme .title-input::placeholder {
+  color: #b7bdca;
+}
+
 .title-input:focus {
   background: white;
   box-shadow: 0 0 0 3px rgba(126, 186, 255, 0.1);
+}
+
+.agenda-container.dark-theme .title-input:focus {
+  background: #252a34;
+  box-shadow: 0 0 0 3px rgba(77, 110, 245, 0.22);
 }
 
 .close-btn {
@@ -844,9 +892,21 @@
   font-family: inherit;
 }
 
+.agenda-container.dark-theme .date-input,
+.agenda-container.dark-theme .time-input {
+  color: #ffffff;
+  background: #252a34;
+}
+
 .date-input:focus, .time-input:focus {
   background: #ffffff;
   box-shadow: 0 0 0 2px rgba(55, 53, 47, 0.16);
+}
+
+.agenda-container.dark-theme .date-input:focus,
+.agenda-container.dark-theme .time-input:focus {
+  background: #2e3440;
+  box-shadow: 0 0 0 2px rgba(77, 110, 245, 0.35);
 }
 
 .description-input {
@@ -864,10 +924,23 @@
   line-height: 1.5;
 }
 
+.agenda-container.dark-theme .description-input {
+  color: #ffffff;
+  background: transparent;
+}
+
+.agenda-container.dark-theme .description-input::placeholder {
+  color: #b7bdca;
+}
+
 .description-input:focus {
   background: #f7f6f3;
   border-radius: 4px;
   padding: 8px 12px;
+}
+
+.agenda-container.dark-theme .description-input:focus {
+  background: #252a34;
 }
 
 .event-form textarea {
@@ -886,6 +959,11 @@
   font-size: 14px;
   color: #3c4043;
   font-weight: 500;
+}
+
+.agenda-container.dark-theme .checklist-header span,
+.agenda-container.dark-theme .attachment-header span {
+  color: #ffffff;
 }
 
 .checklist-item {
@@ -913,10 +991,26 @@
   transition: all 0.3s ease;
 }
 
+.agenda-container.dark-theme .checklist-text {
+  color: #ffffff;
+  background: #252a34;
+  border-color: #3a4050;
+}
+
+.agenda-container.dark-theme .checklist-text::placeholder {
+  color: #b7bdca;
+}
+
 .checklist-text:focus {
   border-color: rgb(126, 186, 255);
   box-shadow: 0 0 0 2px rgba(126, 186, 255, 0.1);
   background: white;
+}
+
+.agenda-container.dark-theme .checklist-text:focus {
+  background: #2e3440;
+  border-color: #4d6ef5;
+  box-shadow: 0 0 0 2px rgba(77, 110, 245, 0.22);
 }
 
 .add-item-btn {
@@ -944,6 +1038,11 @@
   font-size: 14px;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.agenda-container.dark-theme .add-item-btn,
+.agenda-container.dark-theme .file-upload-btn {
+  color: #ffffff;
 }
 
 .file-upload-btn:hover {
@@ -1001,6 +1100,11 @@
   display: flex;
   justify-content: flex-end;
   background: #fafafa;
+}
+
+.agenda-container.dark-theme .form-footer {
+  background: #181b22;
+  border-top-color: #2e3240;
 }
 
 .save-btn {

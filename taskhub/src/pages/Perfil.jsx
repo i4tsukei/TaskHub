@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Perfil.css';
 import UsuarioService from '../services/UsuarioService';
 
-function Perfil({ darkTheme, setDarkTheme = () => {} }) {
+function Perfil({ darkTheme }) {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
@@ -91,9 +91,6 @@ function Perfil({ darkTheme, setDarkTheme = () => {} }) {
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
-          </div>
-          <div className="sidebar-item" onClick={() => setDarkTheme(!darkTheme)}>
-            <div className="sidebar-label">{darkTheme ? '☀️ Modo Claro' : '🌙 Modo Escuro'}</div>
           </div>
         </div>
       </div>
