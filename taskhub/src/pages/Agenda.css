@@ -20,19 +20,24 @@
 }
 
 .menu-toggle {
-  position: fixed;
-  top: 10px;
-  left: 20px;
+  position: absolute;
+  top: 36px;
+  left: 36px;
   z-index: 1001;
   background: rgba(255, 255, 255, 0.92);
   color: #111827;
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 0;
+  width: 42px;
+  height: 42px;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: grid;
+  place-items: center;
+  line-height: 1;
 }
 
 .menu-toggle.open {
@@ -615,8 +620,8 @@
   font-weight: 600;
   background: rgba(255, 255, 255, 0.86) !important;
   transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  border-radius: 22px;
+  border: none;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
   backdrop-filter: blur(16px);
@@ -636,7 +641,7 @@
 .calendar-navigation {
   display: flex;
   align-items: center;
-  padding: 18px 28px;
+  padding: 18px 28px 18px 98px;
   background: rgba(255, 255, 255, 0.72) !important;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -1695,8 +1700,11 @@
   }
 
   .menu-toggle {
-    top: 10px;
-    left: 20px;
+    top: 24px;
+    left: 24px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
   }
 
   .calendar,
@@ -1704,7 +1712,7 @@
     width: 100%;
     height: calc(100vh - 20px);
     margin-left: 0;
-    border-radius: 16px;
+    border-radius: 0;
   }
 
   .calendar-navigation {

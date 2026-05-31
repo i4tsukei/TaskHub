@@ -147,15 +147,28 @@ function Agenda({ darkTheme }) {
     return days;
   };
 
-  const formatDate = (day) => {
-    const month = String(currentMonth + 1).padStart(2, '0');
-    return `${currentYear}-${month}-${String(day).padStart(2, '0')}`;
+  const formatDate = (dayObj) => {
+    const date = new Date(currentYear, currentMonth, dayObj.day);
+
+    if (dayObj.type === 'prev') {
+      date.setMonth(currentMonth - 1);
+    }
+
+    if (dayObj.type === 'next') {
+      date.setMonth(currentMonth + 1);
+    }
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   };
 
-  const getEventsForDay = (day) => events.filter(e => e.date === formatDate(day));
+  const getEventsForDay = (dayObj) => events.filter(e => e.date === formatDate(dayObj));
 
-  const handleDayClick = (day) => {
-    if (day) { setEventForm({ ...eventForm, date: formatDate(day) }); setShowModal(true); }
+  const handleDayClick = (dayObj) => {
+    if (dayObj?.day) { setEventForm({ ...eventForm, date: formatDate(dayObj) }); setShowModal(true); }
   };
 
   const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -172,8 +185,12 @@ function Agenda({ darkTheme }) {
 
   return (
     <div className={`agenda-container ${darkTheme ? 'dark-theme' : ''}`} style={{fontFamily: "'Inter', sans-serif"}} onClick={closeContextMenu}>
-      <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={() => setShowSidebar(!showSidebar)}>
-        ☰
+      <button
+        className={`menu-toggle ${showSidebar ? 'open' : ''}`}
+        onClick={() => setShowSidebar(!showSidebar)}
+        aria-label="Abrir menu"
+      >
+        <span aria-hidden="true">&#9776;</span>
       </button>
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
@@ -194,7 +211,7 @@ function Agenda({ darkTheme }) {
 
       <div className={`calendar ${showSidebar ? 'sidebar-open' : ''}`}>
         <div className="calendar-navigation">
-          <div className="nav-left" style={{ marginLeft: '70px' }}>
+          <div className="nav-left">
             <button onClick={prevMonth} className="nav-btn">‹</button>
             <div className="month-year">
               <select value={currentMonth} onChange={(e) => setCurrentMonth(parseInt(e.target.value))} className="month-selector">
@@ -215,25 +232,23 @@ function Agenda({ darkTheme }) {
             <div
               key={index}
               className={`calendar-day ${dayObj.type === 'current' ? 'active' : dayObj.type === 'prev' ? 'prev-month' : 'next-month'}`}
-              onClick={() => dayObj.type === 'current' && handleDayClick(dayObj.day)}
+              onClick={() => handleDayClick(dayObj)}
             >
               <span className="day-number">{dayObj.day}</span>
-              {dayObj.type === 'current' && (
-                <div className="day-events">
-                  {getEventsForDay(dayObj.day).map(event => (
-                    <div
-                      key={event.id}
-                      className="event-preview"
-                      style={{ backgroundColor: event.color || '#1a73e8' }}
-                      onClick={(e) => handleEventClick(e, event)}
-                      onContextMenu={(e) => handleEventRightClick(e, event.id)}
-                    >
-                      {event.icon && <span className="event-icon">{event.icon}</span>}
-                      {event.title}
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="day-events">
+                {getEventsForDay(dayObj).map(event => (
+                  <div
+                    key={event.id}
+                    className="event-preview"
+                    style={{ backgroundColor: event.color || '#1a73e8' }}
+                    onClick={(e) => handleEventClick(e, event)}
+                    onContextMenu={(e) => handleEventRightClick(e, event.id)}
+                  >
+                    {event.icon && <span className="event-icon">{event.icon}</span>}
+                    {event.title}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
