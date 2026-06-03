@@ -8,6 +8,10 @@ function Perfil({ darkTheme }) {
   const [showSidebar, setShowSidebar] = useState(true);
   const [activeSection, setActiveSection] = useState('dados');
   const [userData, setUserData] = useState({ nome: '', email: '', telefone: '' });
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotData, setForgotData] = useState({ novaSenha: '', confirmarSenha: '' });
+  const [forgotError, setForgotError] = useState('');
+  const [forgotSuccess, setForgotSuccess] = useState('');
 
   useEffect(() => {
     const user = UsuarioService.getCurrentUser();
@@ -24,7 +28,7 @@ function Perfil({ darkTheme }) {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = (e) => setProfilePhoto(e.target.result);
+        reader.onload = (event) => setProfilePhoto(event.target.result);
         reader.readAsDataURL(file);
       }
     };
@@ -44,17 +48,18 @@ function Perfil({ darkTheme }) {
     }
   };
 
-  const [showForgot, setShowForgot] = useState(false);
-  const [forgotData, setForgotData] = useState({ novaSenha: '', confirmarSenha: '' });
-  const [forgotError, setForgotError] = useState('');
-  const [forgotSuccess, setForgotSuccess] = useState('');
-
   const handleForgotReset = (e) => {
     e.preventDefault();
     setForgotError('');
     setForgotSuccess('');
-    if (forgotData.novaSenha.length < 6) { setForgotError('A senha deve ter pelo menos 6 caracteres.'); return; }
-    if (forgotData.novaSenha !== forgotData.confirmarSenha) { setForgotError('As senhas não coincidem.'); return; }
+    if (forgotData.novaSenha.length < 6) {
+      setForgotError('A senha deve ter pelo menos 6 caracteres.');
+      return;
+    }
+    if (forgotData.novaSenha !== forgotData.confirmarSenha) {
+      setForgotError('As senhas não coincidem.');
+      return;
+    }
     const user = UsuarioService.getCurrentUser();
     if (!user) return;
     UsuarioService.resetSenha(user.email, forgotData.novaSenha)
@@ -78,6 +83,7 @@ function Perfil({ darkTheme }) {
       <button className={`menu-toggle ${showSidebar ? 'open' : ''}`} onClick={() => setShowSidebar(!showSidebar)}>
         ☰
       </button>
+
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=dashboard'}>
@@ -87,7 +93,7 @@ function Perfil({ darkTheme }) {
             <div className="sidebar-label">Agenda</div>
           </div>
           <div className={`sidebar-item ${activeSection === 'dados' ? 'active' : ''}`} onClick={() => setActiveSection('dados')}>
-            <div className="sidebar-label">Dados Pessoais</div>
+            <div className="sidebar-label">Dados pessoais</div>
           </div>
           <div className="sidebar-item" onClick={() => window.location.href = '/?page=home'}>
             <div className="sidebar-label">Sair</div>
@@ -95,15 +101,31 @@ function Perfil({ darkTheme }) {
         </div>
       </div>
 
-      <div className={`perfil-content ${showSidebar ? 'sidebar-open' : ''}`}>
-        <div className="perfil-card">
-          <div className="perfil-avatar">
-            <div className="avatar-circle" onClick={() => setShowPhotoOptions(true)}>
-              {profilePhoto ? (
-                <img src={profilePhoto} alt="Profile" className="profile-image" />
-              ) : (
-                <span>{userData.nome.charAt(0).toUpperCase()}</span>
-              )}
+      <main className={`perfil-content ${showSidebar ? 'sidebar-open' : ''}`}>
+        <section className="perfil-card">
+          <div className="perfil-hero">
+            <div className="perfil-avatar">
+              <div className="avatar-circle" onClick={() => setShowPhotoOptions(true)}>
+                {profilePhoto ? (
+                  <img src={profilePhoto} alt="Foto de perfil" className="profile-image" />
+                ) : (
+                  <span>{userData.nome.charAt(0).toUpperCase()}</span>
+                )}
+              </div>
+              <button className="photo-action" type="button" onClick={() => setShowPhotoOptions(true)}>
+                Alterar foto
+              </button>
+            </div>
+
+            <div className="perfil-info">
+              <span className="perfil-kicker">Meu perfil</span>
+              <h2>{userData.nome || 'Usuário'}</h2>
+              <p>{userData.email || 'usuario@email.com'}</p>
+            </div>
+
+            <div className="perfil-status">
+              <span className="status-dot"></span>
+              Conta ativa
             </div>
           </div>
 
@@ -116,51 +138,55 @@ function Perfil({ darkTheme }) {
             </div>
           )}
 
-          <div className="perfil-info">
-            <h2>{userData.nome || 'Usuário'}</h2>
-            <p>{userData.email || 'usuario@email.com'}</p>
-          </div>
+          <div className="perfil-panel">
+            <div className="panel-header">
+              <div>
+                <h3>Dados pessoais</h3>
+                <p>Mantenha suas informações principais atualizadas.</p>
+              </div>
+            </div>
 
-          <div className="perfil-fields">
-            <div className="field-group">
-              <label>Nome</label>
-              <input type="text" value={userData.nome} onChange={(e) => setUserData({...userData, nome: e.target.value})} />
+            <div className="perfil-fields">
+              <div className="field-group">
+                <label>Nome</label>
+                <input type="text" value={userData.nome} onChange={(e) => setUserData({ ...userData, nome: e.target.value })} />
+              </div>
+              <div className="field-group">
+                <label>Email</label>
+                <input type="email" value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
+                <button className="perfil-forgot-link" type="button" onClick={() => setShowForgot(true)}>Esqueci a senha</button>
+              </div>
+              <div className="field-group">
+                <label>Telefone</label>
+                <input type="tel" placeholder="(00) 00000-0000" value={userData.telefone} onChange={(e) => setUserData({ ...userData, telefone: e.target.value })} />
+              </div>
             </div>
-            <div className="field-group">
-              <label>Email</label>
-              <input type="email" value={userData.email} onChange={(e) => setUserData({...userData, email: e.target.value})} />
-              <span className="perfil-forgot-link" onClick={() => setShowForgot(true)}>Esqueci a senha</span>
-            </div>
-            <div className="field-group">
-              <label>Telefone</label>
-              <input type="tel" placeholder="(00) 00000-0000" value={userData.telefone} onChange={(e) => setUserData({...userData, telefone: e.target.value})} />
-            </div>
-          </div>
 
-          <div className="perfil-actions">
-            <button className="save-btn" onClick={handleSavePersonalData}>Salvar</button>
+            <div className="perfil-actions">
+              <button className="save-btn" onClick={handleSavePersonalData}>Salvar alterações</button>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
 
       {showForgot && (
         <div className="forgot-overlay" onClick={closeForgot}>
           <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="forgot-close" onClick={closeForgot}>✕</button>
-            <h2>Redefinir Senha</h2>
+            <button className="forgot-close" onClick={closeForgot}>×</button>
+            <h2>Redefinir senha</h2>
             <p>Defina uma nova senha para a sua conta.</p>
             <form onSubmit={handleForgotReset}>
               <div className="field-group">
-                <label>Nova Senha</label>
+                <label>Nova senha</label>
                 <input type="password" value={forgotData.novaSenha} onChange={(e) => setForgotData({ ...forgotData, novaSenha: e.target.value })} required />
               </div>
               <div className="field-group">
-                <label>Confirmar Senha</label>
+                <label>Confirmar senha</label>
                 <input type="password" value={forgotData.confirmarSenha} onChange={(e) => setForgotData({ ...forgotData, confirmarSenha: e.target.value })} required />
               </div>
               {forgotError && <p className="password-error">{forgotError}</p>}
               {forgotSuccess && <p className="password-success">{forgotSuccess}</p>}
-              <button type="submit" className="change-password-btn">Redefinir Senha</button>
+              <button type="submit" className="change-password-btn">Redefinir senha</button>
             </form>
           </div>
         </div>
