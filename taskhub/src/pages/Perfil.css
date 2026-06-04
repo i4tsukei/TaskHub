@@ -27,7 +27,7 @@
 
 .perfil-hero {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: 28px;
   min-height: 220px;
@@ -140,31 +140,6 @@
   color: #dbe4ff;
   font-size: 1rem;
   overflow-wrap: anywhere;
-}
-
-.perfil-status {
-  position: relative;
-  z-index: 1;
-  align-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.status-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #68e38b;
-  box-shadow: 0 0 0 4px rgba(104, 227, 139, 0.18);
 }
 
 .perfil-panel {
@@ -516,6 +491,13 @@
   color: #ffffff;
 }
 
+.perfil-container.dark-theme .sidebar-item,
+.perfil-container.dark-theme .sidebar-item:hover,
+.perfil-container.dark-theme .sidebar-item.active,
+.perfil-container.dark-theme .sidebar-label {
+  color: #ffffff;
+}
+
 @media (max-width: 900px) {
   .perfil-content,
   .perfil-content.sidebar-open {
@@ -529,10 +511,6 @@
     text-align: center;
     justify-items: center;
     padding: 28px 22px;
-  }
-
-  .perfil-status {
-    align-self: center;
   }
 
   .perfil-fields {

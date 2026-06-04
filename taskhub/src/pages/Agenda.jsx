@@ -42,8 +42,22 @@ function Agenda({ darkTheme }) {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const eventColors = {
-    purple: '#c684d1ff', pink: '#e961ddff', blue: '#7badeeff',
-    yellow: '#ffc15eff', red: '#f35b5bff', orange: '#f0a739ff', green: '#87ec8cff'
+    purple: '#c684d1ff',
+    violet: '#8b5cf6',
+    pink: '#e961ddff',
+    rose: '#fb7185',
+    blue: '#7badeeff',
+    sky: '#38bdf8',
+    cyan: '#22d3ee',
+    teal: '#2dd4bf',
+    green: '#87ec8cff',
+    emerald: '#34d399',
+    lime: '#a3e635',
+    yellow: '#ffc15eff',
+    amber: '#f59e0b',
+    orange: '#f0a739ff',
+    red: '#f35b5bff',
+    slate: '#64748b'
   };
 
   const handleAddEvent = () => {

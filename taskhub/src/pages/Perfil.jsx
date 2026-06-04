@@ -123,10 +123,6 @@ function Perfil({ darkTheme }) {
               <p>{userData.email || 'usuario@email.com'}</p>
             </div>
 
-            <div className="perfil-status">
-              <span className="status-dot"></span>
-              Conta ativa
-            </div>
           </div>
 
           {showPhotoOptions && (
