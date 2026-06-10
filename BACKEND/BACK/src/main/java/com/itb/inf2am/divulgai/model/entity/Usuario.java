@@ -19,17 +19,21 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Nome", length = 100, nullable = false)
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "Email", length = 150, nullable = false, unique = true)
-    private String email;
+    @Column(name = "username", length = 150, nullable = false, unique = true)
+    private String username;
 
-    @Column(name = "Senha", length = 255, nullable = false)
-    private String senha;
+    @Column(name = "password", length = 255, nullable = false)
+    private String password;
 
-    @Column(name = "DataCadastro", nullable = false)
+    @Column(name = "dataCadastro", nullable = false)
     private LocalDateTime dataCadastro;
+
+    @Column(name = "dataAtualizacao", nullable = true)
+    private LocalDateTime dataAtualizacao;
+
 
     @Column(name = "nivelAcesso", length = 20, nullable = true)
     private String nivelAcesso = "usuario";
@@ -39,14 +43,12 @@ public class Usuario {
     private byte[] foto;
 
     @Column(name = "statusUsuario", length = 20,  nullable = false)
-    private String statusUsuario = "ativo";
+    private String statusUsuario = "ATIVO";
 
     @PrePersist
     protected void onCreate() {
         this.dataCadastro = LocalDateTime.now();
     }
-
-    // Getters e Setters
 
     public Long getId() {
         return id;
@@ -64,20 +66,20 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getDataCadastro() {
@@ -88,30 +90,38 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     public String getNivelAcesso() {
-    return nivelAcesso;
+        return nivelAcesso;
     }
 
     public void setNivelAcesso(String nivelAcesso) {
-    this.nivelAcesso = nivelAcesso;
+        this.nivelAcesso = nivelAcesso;
     }
 
     public byte[] getFoto() {
-    return foto;
+        return foto;
     }
 
     public void setFoto(byte[] foto) {
-    this.foto = foto;
+        this.foto = foto;
     }
 
     public String getStatusUsuario() {
-    return statusUsuario;
+        return statusUsuario;
     }
 
     public void setStatusUsuario(String statusUsuario) {
-    this.statusUsuario = statusUsuario;
+        this.statusUsuario = statusUsuario;
     }
 
-
+    // Getters e Setters
 
 }
